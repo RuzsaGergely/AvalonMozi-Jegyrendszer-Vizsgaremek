@@ -1,4 +1,5 @@
-﻿using AvalonMozi.Factories.UserFactories;
+﻿using AvalonMozi.Factories.MovieFactories;
+using AvalonMozi.Factories.UserFactories;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AvalonMozi.Factories
@@ -9,6 +10,7 @@ namespace AvalonMozi.Factories
         {
             services.AddTransient<IUserFactory, UserFactory>();
             services.AddTransient<IRoleFactory, RoleFactory>();
+            services.AddTransient<IMovieFactory, MovieFactory>();
         }
     }
 }

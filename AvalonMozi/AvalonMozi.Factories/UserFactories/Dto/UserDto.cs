@@ -9,7 +9,7 @@ namespace AvalonMozi.Factories.UserFactories.Dto
 {
     public class UserDto
     {
-        public Guid TechnicalId { get; set; }
+        public string TechnicalId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }

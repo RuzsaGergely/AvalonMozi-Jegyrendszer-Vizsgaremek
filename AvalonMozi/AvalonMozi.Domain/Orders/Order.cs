@@ -10,7 +10,7 @@ namespace AvalonMozi.Domain.Orders
     public class Order
     {
         public int Id { get; set; }
-        public Guid TechnicalId { get; set; }
+        public string TechnicalId { get; set; }
         public User User { get; set; }
         public BillingInformation BillingInfo { get; set; }
         public List<OrderItem> Items { get; set; }

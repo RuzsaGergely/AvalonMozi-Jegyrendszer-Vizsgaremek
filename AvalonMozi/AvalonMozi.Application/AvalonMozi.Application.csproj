@@ -12,10 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Movies\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\AvalonMozi.Domain\AvalonMozi.Domain.csproj" />
     <ProjectReference Include="..\AvalonMozi.Factories\AvalonMozi.Factories.csproj" />
     <ProjectReference Include="..\AvalonMozi.Persistence\AvalonMozi.Persistence.csproj" />

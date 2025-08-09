@@ -11,7 +11,7 @@ namespace AvalonMozi.Domain.Orders
     public class OrderItem
     {
         public int Id { get; set; }
-        public Guid TechnicalId {  get; set; }
+        public string TechnicalId {  get; set; }
         public Movie Movie { get; set; }
         public bool Deleted { get; set; }
     }
