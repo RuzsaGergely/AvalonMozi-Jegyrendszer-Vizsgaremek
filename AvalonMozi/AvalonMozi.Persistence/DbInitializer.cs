@@ -53,6 +53,7 @@ namespace AvalonMozi.Persistence
                 context.SaveChanges();
             }
 
+            var adminRole = context.Set<Role>().FirstOrDefault(x => x.TechnicalName == "ADMIN");
             var adminUser = context.Set<User>().FirstOrDefault(x => x.Email == "vizsgaremek.admin@testdev.hu" && x.Roles.Any(x=>x.TechnicalName == "ADMIN"));
             if (adminUser == null)
             {
@@ -63,7 +64,11 @@ namespace AvalonMozi.Persistence
                     Deleted = false,
                     Email = "vizsgaremek.admin@testdev.hu",
                     LastSuccessfulLoginTime = DateTime.Now,
-                    PasswordHash = ""
+                    PasswordHash = "",
+                    Roles = new List<Role>()
+                    {
+                        adminRole
+                    }
                 });
                 context.SaveChanges();
             }
