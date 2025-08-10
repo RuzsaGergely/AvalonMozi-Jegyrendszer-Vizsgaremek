@@ -3,20 +3,23 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using AvalonMozi.Factories.UserFactories.Dto;
 using Microsoft.AspNetCore.Authorization;
+using AvalonMozi.Factories.UserFactories;
 
 namespace AvalonMozi.Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     [Authorize(Roles = "ADMIN,EMPLOYEE")]
-    public class AuthenticationController : ControllerBase
+    public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly IUserFactory _userFactory;
         private readonly IJwtAuthManager _jwtAuthManager;
-        public AuthenticationController(IUserService userService, IJwtAuthManager jwtAuthManager)
+        public UserController(IUserService userService, IJwtAuthManager jwtAuthManager, IUserFactory userFactory)
         {
             _userService = userService;
             _jwtAuthManager = jwtAuthManager;
+            _userFactory = userFactory;
         }
 
         [HttpPost("Login")]
@@ -33,10 +36,18 @@ namespace AvalonMozi.Backend.Controllers
             return Unauthorized("ERROR_INVALID_USERNAME_OR_PASSWORD");
         }
 
+        [HttpGet("GetUserProfile")]
+        [Authorize(Roles = "ADMIN,EMPLOYEE,CUSTOMER")]
+        public async Task<UserDto> GetUserProfile()
+        {
+            string userTechnicalId = this.User.Claims.First(i => i.Type == "UserTechnicalId").Value;
+            return _userFactory.ConvertEntityToDto(await _userService.GetUserByTechnicalId(userTechnicalId));
+        }
+
         [HttpGet("GeneratePassword")]
         public async Task<IActionResult> GeneratePassword(string password)
         {
-            var user = await _userService.GetUser("vizsgaremek.admin@testdev.hu");
+            var user = await _userService.GetUserByEmail("vizsgaremek.admin@testdev.hu");
             if(user is not null)
             {
                 return Ok(_userService.HashPassword(password));

@@ -22,9 +22,14 @@ namespace AvalonMozi.Application.Users.Services
             _userFactory = userFactory;
         }
 
-        public async Task<User> GetUser(string email)
+        public async Task<User> GetUserByEmail(string email)
         {
             return await _database.Users.FirstOrDefaultAsync(x=>x.Email == email);
+        }
+
+        public async Task<User> GetUserByTechnicalId(string technicalID)
+        {
+            return await _database.Users.FirstOrDefaultAsync(x => x.TechnicalId == technicalID);
         }
 
         public async Task<UserDto> AuthenticateUser(string email, string password)

@@ -1,5 +1,6 @@
 ﻿using AvalonMozi.Application.Movies.Services;
 using AvalonMozi.Application.Orders.Services;
+using AvalonMozi.Application.Tickets.Services;
 using AvalonMozi.Application.Users.Services;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,6 +14,7 @@ namespace AvalonMozi.Application
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IMovieService, MovieService>();
             services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<ITicketService, TicketService>();
         }
     }
 }

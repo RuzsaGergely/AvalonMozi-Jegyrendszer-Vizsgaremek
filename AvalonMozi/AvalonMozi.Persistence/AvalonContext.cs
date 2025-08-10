@@ -50,10 +50,12 @@ namespace AvalonMozi.Persistence
                 .HasQueryFilter(x => x.Deleted == false);
 
             modelBuilder.Entity<Ticket>()
-                .HasQueryFilter(x => x.Deleted == false);
+                .HasQueryFilter(x => x.Deleted == false)
+                .Navigation(y => y.AssignedTo).AutoInclude();
 
             modelBuilder.Entity<OrderItem>()
-                .HasQueryFilter(x => x.Deleted == false);
+                .HasQueryFilter(x => x.Deleted == false)
+                .Navigation(y=>y.Movie).AutoInclude();
 
             modelBuilder.Entity<Order>()
                 .HasQueryFilter(x => x.Deleted == false);

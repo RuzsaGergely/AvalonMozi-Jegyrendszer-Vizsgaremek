@@ -1,4 +1,5 @@
 ﻿using AvalonMozi.Application.Orders.Dto;
+using AvalonMozi.Application.Tickets.Services;
 using AvalonMozi.Domain.Orders;
 using AvalonMozi.Domain.Tickets;
 using AvalonMozi.Factories.OrderFactories;
@@ -17,10 +18,12 @@ namespace AvalonMozi.Application.Orders.Services
     {
         private readonly AvalonContext _context;
         private readonly IOrderFactory _orderFactory;
-        public OrderService(IOrderFactory orderFactory, AvalonContext context)
+        private readonly ITicketService _ticketService;
+        public OrderService(IOrderFactory orderFactory, AvalonContext context, ITicketService ticketService)
         {
             _orderFactory = orderFactory;
             _context = context;
+            _ticketService = ticketService;
         }
         public async Task<string> ProcessOrderRequest(OrderRequestDto orderDto)
         {
@@ -73,12 +76,7 @@ namespace AvalonMozi.Application.Orders.Services
 
             foreach (var item in newOrder.Items)
             {
-                _context.Tickets.Add(new Ticket()
-                {
-                    AssignedTo = item,
-                    Deleted = false,
-                    TicketData = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes($"{item.TechnicalId};{newOrder.User.TechnicalId}"))
-                });
+                _context.Tickets.Add(_ticketService.GenerateTicket(item, newOrder.User));
             }
 
             await _context.SaveChangesAsync();

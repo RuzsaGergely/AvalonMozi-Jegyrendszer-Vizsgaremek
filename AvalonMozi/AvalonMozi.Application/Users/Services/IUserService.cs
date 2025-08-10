@@ -10,7 +10,8 @@ namespace AvalonMozi.Application.Users.Services
 {
     public interface IUserService
     {
-        Task<User> GetUser(string email);
+        Task<User> GetUserByTechnicalId(string technicalID);
+        Task<User> GetUserByEmail(string email);
         Task<UserDto> AuthenticateUser(string email, string password);
         string HashPassword(string password);
 

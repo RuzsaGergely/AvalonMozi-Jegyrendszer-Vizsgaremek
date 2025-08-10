@@ -29,7 +29,8 @@ namespace AvalonMozi.Application.Users.Services
             var claimList = new List<Claim>()
             {
                 new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Name, user.FirstName + " " + user.LastName)
+                new Claim(ClaimTypes.Name, user.FirstName + " " + user.LastName),
+                new Claim("UserTechnicalId", user.TechnicalId)
             };
 
             foreach (var role in user.Roles)
