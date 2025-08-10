@@ -10,7 +10,6 @@ namespace AvalonMozi.Domain.Tickets
 {
     public class Ticket : BaseEntity
     {
-        public DateTime ValidUntil {  get; set; }
         public string TicketData { get; set; }
         public OrderItem AssignedTo { get; set; }
     }

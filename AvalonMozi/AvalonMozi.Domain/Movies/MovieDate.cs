@@ -10,6 +10,7 @@ namespace AvalonMozi.Domain.Movies
     public class MovieDate : BaseEntity
     {
         public string TechnicalId {  get; set; }
-        public DateTime Date { get; set; }
+        public DateTime DateFrom { get; set; }
+        public DateTime DateTo { get; set; }
     }
 }

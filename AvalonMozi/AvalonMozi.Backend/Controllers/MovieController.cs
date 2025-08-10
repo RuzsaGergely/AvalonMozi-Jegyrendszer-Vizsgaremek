@@ -28,22 +28,39 @@ namespace AvalonMozi.Backend.Controllers
         }
 
         [HttpPost("AddMovie")]
-        public async Task AddMovie(MovieDto movie)
+        public async Task<IActionResult> AddMovie(MovieDto movie)
         {
             var newEntity = _movieFactory.ConvertDtoToEntity(movie);
             try
             {
-                await _movieService.AddNewMovie(newEntity);
+                if(await _movieService.AddNewMovie(newEntity))
+                {
+                    return Ok();
+                }
+                return BadRequest();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                return BadRequest(ex);
             }
         }
 
         [HttpPut("UpdateMovie")]
-        public async Task UpdateMovie(MovieDto dto)
+        public async Task<IActionResult> UpdateMovie(MovieDto dto)
         {
-            await _movieService.UpdateMovie(dto);
+            try
+            {
+                if(await _movieService.UpdateMovie(dto))
+                {
+                    return Ok();
+                }
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete("DeleteMovie")]

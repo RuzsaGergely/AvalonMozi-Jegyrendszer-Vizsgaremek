@@ -9,6 +9,7 @@ namespace AvalonMozi.Factories.MovieFactories.Dto
     public class MovieDateDto
     {
         public string? TechnicalId { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime DateFrom { get; set; }
+        public DateTime DateTo { get; set; }
     }
 }

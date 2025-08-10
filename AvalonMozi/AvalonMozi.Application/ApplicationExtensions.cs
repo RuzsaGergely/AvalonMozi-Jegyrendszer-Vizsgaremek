@@ -1,4 +1,5 @@
 ﻿using AvalonMozi.Application.Movies.Services;
+using AvalonMozi.Application.Orders.Services;
 using AvalonMozi.Application.Users.Services;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,6 +12,7 @@ namespace AvalonMozi.Application
             services.AddSingleton<IJwtAuthManager, JwtAuthManager>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IMovieService, MovieService>();
+            services.AddTransient<IOrderService, OrderService>();
         }
     }
 }

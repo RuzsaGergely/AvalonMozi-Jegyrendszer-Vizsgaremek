@@ -78,7 +78,8 @@ namespace AvalonMozi.Factories.MovieFactories
             return new MovieDateDto()
             {
                 TechnicalId = date.TechnicalId,
-                Date = date.Date
+                DateFrom = date.DateFrom,
+                DateTo = date.DateTo
             };
         }
 
@@ -86,7 +87,8 @@ namespace AvalonMozi.Factories.MovieFactories
         {
             return new MovieDate()
             {
-                Date = date.Date,
+                DateFrom = date.DateFrom,
+                DateTo = date.DateTo,
                 Deleted = false,
                 TechnicalId = Guid.NewGuid().ToString()
             };

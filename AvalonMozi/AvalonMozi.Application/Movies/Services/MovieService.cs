@@ -45,7 +45,7 @@ namespace AvalonMozi.Application.Movies.Services
 
             foreach (var item in movie.Dates.Where(x=>!x.Deleted))
             {
-                if(!dto.Dates.Any(x=>x.Date == item.Date))
+                if(!dto.Dates.Any(x=>x.DateFrom == item.DateFrom && x.DateTo == item.DateTo))
                 {
                     item.Deleted = true;
                 }
@@ -53,7 +53,7 @@ namespace AvalonMozi.Application.Movies.Services
 
             foreach (var item in dto.Dates)
             {
-                if(!movie.Dates.Any(x=>x.Date == item.Date))
+                if(!movie.Dates.Any(x=>x.DateFrom == item.DateFrom && x.DateTo == item.DateTo))
                 {
                     movie.Dates.Add(_movieFactory.ConvertMovieDateDtoToEntity(item));
                 }

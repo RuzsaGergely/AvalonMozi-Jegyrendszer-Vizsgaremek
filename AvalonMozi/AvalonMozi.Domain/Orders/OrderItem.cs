@@ -13,5 +13,6 @@ namespace AvalonMozi.Domain.Orders
     {
         public string TechnicalId {  get; set; }
         public Movie Movie { get; set; }
+        public MovieDate SelectedDateTime { get; set; }
     }
 }
