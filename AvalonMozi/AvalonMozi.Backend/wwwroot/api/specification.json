@@ -1,0 +1,525 @@
+{
+  "x-generator": "NSwag v14.5.0.0 (NJsonSchema v11.4.0.0 (Newtonsoft.Json v13.0.0.0))",
+  "openapi": "3.0.0",
+  "info": {
+    "title": "AvalonMozi.Backend",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/Movie": {
+      "get": {
+        "tags": [
+          "Movie"
+        ],
+        "operationId": "Movie_GetMovies",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MovieDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Movie/AddMovie": {
+      "post": {
+        "tags": [
+          "Movie"
+        ],
+        "operationId": "Movie_AddMovie",
+        "requestBody": {
+          "x-name": "movie",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MovieDto"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": [
+              "ADMIN",
+              "EMPLOYEE"
+            ]
+          }
+        ]
+      }
+    },
+    "/api/Movie/UpdateMovie": {
+      "put": {
+        "tags": [
+          "Movie"
+        ],
+        "operationId": "Movie_UpdateMovie",
+        "requestBody": {
+          "x-name": "dto",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MovieDto"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": [
+              "ADMIN",
+              "EMPLOYEE"
+            ]
+          }
+        ]
+      }
+    },
+    "/api/Movie/DeleteMovie": {
+      "delete": {
+        "tags": [
+          "Movie"
+        ],
+        "operationId": "Movie_DeleteMovie",
+        "parameters": [
+          {
+            "name": "techId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "JWT": [
+              "ADMIN",
+              "EMPLOYEE"
+            ]
+          }
+        ]
+      }
+    },
+    "/api/Order/NewOrder": {
+      "post": {
+        "tags": [
+          "Order"
+        ],
+        "operationId": "Order_AddNewOrder",
+        "requestBody": {
+          "x-name": "order",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderRequestDto"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": [
+              "ADMIN",
+              "EMPLOYEE",
+              "CUSTOMER"
+            ]
+          }
+        ]
+      }
+    },
+    "/api/Ticket/CheckTicket": {
+      "get": {
+        "tags": [
+          "Ticket"
+        ],
+        "operationId": "Ticket_CheckTicketValidity",
+        "parameters": [
+          {
+            "name": "ticketData",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TicketCheckResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": [
+              "ADMIN",
+              "EMPLOYEE"
+            ]
+          }
+        ]
+      }
+    },
+    "/api/User/Login": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "operationId": "User_Login",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/User/GetUserProfile": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "operationId": "User_GetUserProfile",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": [
+              "ADMIN",
+              "EMPLOYEE",
+              "CUSTOMER"
+            ]
+          }
+        ]
+      }
+    },
+    "/api/User/GeneratePassword": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "operationId": "User_GeneratePassword",
+        "parameters": [
+          {
+            "name": "password",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": [
+              "ADMIN",
+              "EMPLOYEE"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "MovieDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "technicalId": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string"
+          },
+          "seoFriendlyTitle": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "ageRestriction": {
+            "type": "string"
+          },
+          "ticketPrice": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "dates": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MovieDateDto"
+            }
+          }
+        }
+      },
+      "MovieDateDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "technicalId": {
+            "type": "string",
+            "nullable": true
+          },
+          "dateFrom": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dateTo": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "OrderRequestDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "userTechnicalId": {
+            "type": "string"
+          },
+          "billingInfo": {
+            "$ref": "#/components/schemas/BillingInformationDto"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderItemRequestDto"
+            }
+          }
+        }
+      },
+      "BillingInformationDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "companyName": {
+            "type": "string",
+            "nullable": true
+          },
+          "vatNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "address1": {
+            "type": "string"
+          },
+          "address2": {
+            "type": "string",
+            "nullable": true
+          },
+          "zipCode": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "county": {
+            "type": "string"
+          }
+        }
+      },
+      "OrderItemRequestDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "movieTechnicalId": {
+            "type": "string"
+          },
+          "dateTimeTechnicalId": {
+            "type": "string"
+          }
+        }
+      },
+      "TicketCheckResponseDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "valid": {
+            "type": "boolean"
+          },
+          "movieName": {
+            "type": "string"
+          },
+          "movieDate": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "UserDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "technicalId": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RoleDto"
+            }
+          }
+        }
+      },
+      "RoleDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "technicalName": {
+            "type": "string"
+          },
+          "displayName": {
+            "type": "string"
+          },
+          "deleted": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "JWT": {
+        "type": "apiKey",
+        "description": "Type into the textbox: Bearer {your JWT token}.",
+        "name": "Authorization",
+        "in": "header"
+      }
+    }
+  },
+  "security": [
+    {
+      "JWT": []
+    }
+  ]
+}
