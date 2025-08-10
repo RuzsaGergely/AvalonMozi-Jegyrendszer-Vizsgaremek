@@ -1,4 +1,4 @@
-﻿using AvalonMozi.Application.Movies;
+﻿using AvalonMozi.Application.Movies.Services;
 using AvalonMozi.Application.Users.Services;
 using Microsoft.Extensions.DependencyInjection;
 

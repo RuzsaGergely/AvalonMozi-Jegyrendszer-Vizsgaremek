@@ -1,4 +1,5 @@
-﻿using AvalonMozi.Domain.Movies;
+﻿using AvalonMozi.Domain.Common;
+using AvalonMozi.Domain.Movies;
 using AvalonMozi.Domain.Tickets;
 using System;
 using System.Collections.Generic;
@@ -8,11 +9,9 @@ using System.Threading.Tasks;
 
 namespace AvalonMozi.Domain.Orders
 {
-    public class OrderItem
+    public class OrderItem : BaseEntity
     {
-        public int Id { get; set; }
         public string TechnicalId {  get; set; }
         public Movie Movie { get; set; }
-        public bool Deleted { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AvalonMozi.Domain.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace AvalonMozi.Domain.Orders
 {
-    public class BillingInformation
+    public class BillingInformation : BaseEntity
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string? CompanyName { get; set; }
         public string? VATNumber { get; set; }
@@ -17,6 +17,5 @@ namespace AvalonMozi.Domain.Orders
         public string ZipCode {  get; set; }
         public string City { get; set; }
         public string County { get; set; }
-        public bool Deleted { get; set; }
     }
 }

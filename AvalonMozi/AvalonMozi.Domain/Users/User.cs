@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AvalonMozi.Domain.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace AvalonMozi.Domain.Users
 {
-    public class User
+    public class User : BaseEntity
     {
-        public int Id { get; set; }
         public string TechnicalId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -17,6 +17,5 @@ namespace AvalonMozi.Domain.Users
         public string PasswordHash { get; set; }
         public DateTime LastSuccessfulLoginTime { get; set; } = new DateTime(1970, 1, 1);
         public List<Role> Roles { get; set; } = new List<Role>();
-        public bool Deleted { get; set; }
     }
 }

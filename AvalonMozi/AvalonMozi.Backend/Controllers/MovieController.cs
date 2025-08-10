@@ -1,4 +1,4 @@
-﻿using AvalonMozi.Application.Movies;
+﻿using AvalonMozi.Application.Movies.Services;
 using AvalonMozi.Factories.MovieFactories;
 using AvalonMozi.Factories.MovieFactories.Dto;
 using Microsoft.AspNetCore.Authorization;
@@ -38,6 +38,18 @@ namespace AvalonMozi.Backend.Controllers
             catch (Exception)
             {
             }
+        }
+
+        [HttpPut("UpdateMovie")]
+        public async Task UpdateMovie(MovieDto dto)
+        {
+            await _movieService.UpdateMovie(dto);
+        }
+
+        [HttpDelete("DeleteMovie")]
+        public async Task DeleteMovie(string techId)
+        {
+            await _movieService.DeleteMovie(techId);
         }
     } 
 }

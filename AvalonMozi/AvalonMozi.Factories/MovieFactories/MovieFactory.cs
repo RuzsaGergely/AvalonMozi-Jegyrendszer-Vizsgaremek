@@ -15,6 +15,8 @@ namespace AvalonMozi.Factories.MovieFactories
         Movie ConvertDtoToEntity(MovieDto dto);
         MovieDto ConvertEntityToDto(Movie entity);
         List<MovieDto> ConvertEntityListToDtoList(List<Movie> list);
+        MovieDate ConvertMovieDateDtoToEntity(MovieDateDto date);
+        MovieDateDto ConvertMovieDateEntityToDto(MovieDate date);
     }
 
     public class MovieFactory : IMovieFactory

@@ -1,8 +1,10 @@
-﻿using AvalonMozi.Domain.Movies;
+﻿using AvalonMozi.Domain.Common;
+using AvalonMozi.Domain.Movies;
 using AvalonMozi.Domain.Orders;
 using AvalonMozi.Domain.Tickets;
 using AvalonMozi.Domain.Users;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace AvalonMozi.Persistence
 {
@@ -12,7 +14,7 @@ namespace AvalonMozi.Persistence
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
         #endregion
-        
+
         #region Ticket related contexts
         public DbSet<Ticket> Tickets { get; set; }
         #endregion
@@ -30,6 +32,41 @@ namespace AvalonMozi.Persistence
 
         public AvalonContext(DbContextOptions<AvalonContext> options) : base(options)
         {
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            this.ConfigureRelations(modelBuilder);
+
+            base.OnModelCreating(modelBuilder);
+        }
+        private void ConfigureRelations(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>()
+                .HasQueryFilter(x => x.Deleted == false)
+                .Navigation(y => y.Roles).AutoInclude();
+
+            modelBuilder.Entity<Role>()
+                .HasQueryFilter(x => x.Deleted == false);
+
+            modelBuilder.Entity<Ticket>()
+                .HasQueryFilter(x => x.Deleted == false);
+
+            modelBuilder.Entity<OrderItem>()
+                .HasQueryFilter(x => x.Deleted == false);
+
+            modelBuilder.Entity<Order>()
+                .HasQueryFilter(x => x.Deleted == false);
+
+            modelBuilder.Entity<BillingInformation>()
+                .HasQueryFilter(x => x.Deleted == false);
+
+            modelBuilder.Entity<Movie>()
+                .HasQueryFilter(x => x.Deleted == false)
+                .Navigation(y => y.Dates).AutoInclude();
+
+            modelBuilder.Entity<MovieDate>()
+                .HasQueryFilter(x => x.Deleted == false);
         }
 
     }

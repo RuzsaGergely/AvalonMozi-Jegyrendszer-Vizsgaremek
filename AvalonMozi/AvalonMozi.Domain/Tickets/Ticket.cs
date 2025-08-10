@@ -1,4 +1,5 @@
-﻿using AvalonMozi.Domain.Orders;
+﻿using AvalonMozi.Domain.Common;
+using AvalonMozi.Domain.Orders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,12 +8,10 @@ using System.Threading.Tasks;
 
 namespace AvalonMozi.Domain.Tickets
 {
-    public class Ticket
+    public class Ticket : BaseEntity
     {
-        public int Id { get; set; }
         public DateTime ValidUntil {  get; set; }
         public string TicketData { get; set; }
         public OrderItem AssignedTo { get; set; }
-        public bool Deleted { get; set; }
     }
 }
