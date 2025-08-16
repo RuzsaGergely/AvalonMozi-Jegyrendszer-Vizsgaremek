@@ -56,9 +56,38 @@ Másodlagos szín, sárga: HEX #fff25a, rgb(255, 242, 90)
 
 Továbbiakban a fekete (HEX #000000, rgb(0,0,0)) és a fehér (HEX #ffffff, rgb(255,255,255)) színek vannak előre elfogadva arculatilag.
 
+Az elsődleges szín árnyalatai a következők:
+
+![MainColorShades](./Other/MainColorShades.png)
+
+Ehhez a [*Tint & Shade Generator*](https://maketintsandshades.com/#069215) weboldalt vettük igénybe.
+
+A forráskódban így definiáltuk a presetet:
+
+```typescript
+const customPreset = definePreset(Aura, {
+  semantic: {
+      primary: {
+          50: '#83c98a',
+          100: '#6abe73',
+          200: '#51b35b',
+          300: '#38a844',
+          400: '#1f9d2c',
+          500: '#069215',
+          600: '#058313',
+          700: '#057511',
+          800: '#04660f',
+          900: '#04580d',
+          950: '#03490b'
+      }
+  }
+});
+```
+
 ## Betűtípus
 
 A logó fő betűtípusa Ranchers. [Google Fonts - Ranchers](https://fonts.google.com/specimen/Ranchers)
+
 A logó másodlagos betűtípusa Bahnschrift Condensed. [Microsoft Font List - Bahnshrift](https://learn.microsoft.com/en-us/typography/font-list/bahnschrift)
 
 További megkötés nincs arculatilag a betűtípusokat illetően.
