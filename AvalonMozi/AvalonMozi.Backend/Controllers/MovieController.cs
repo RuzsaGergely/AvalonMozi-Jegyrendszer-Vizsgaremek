@@ -20,7 +20,7 @@ namespace AvalonMozi.Backend.Controllers
             _movieFactory = movieFactory;
         }
 
-        [HttpGet]
+        [HttpGet("GetMovies")]
         [AllowAnonymous]
         public async Task<List<MovieDto>> GetMovies()
         {

@@ -16,5 +16,6 @@ namespace AvalonMozi.Factories.MovieFactories.Dto
         public string AgeRestriction { get; set; }
         public int TicketPrice { get; set; }
         public List<MovieDateDto> Dates { get; set; }
+        public string? CoverImageBase64 { get; set; }
     }
 }

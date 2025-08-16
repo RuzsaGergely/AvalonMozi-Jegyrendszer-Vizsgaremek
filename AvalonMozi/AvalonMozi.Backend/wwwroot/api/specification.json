@@ -6,7 +6,7 @@
     "version": "1.0.0"
   },
   "paths": {
-    "/api/Movie": {
+    "/api/Movie/GetMovies": {
       "get": {
         "tags": [
           "Movie"
@@ -361,6 +361,10 @@
             "items": {
               "$ref": "#/components/schemas/MovieDateDto"
             }
+          },
+          "coverImageBase64": {
+            "type": "string",
+            "nullable": true
           }
         }
       },

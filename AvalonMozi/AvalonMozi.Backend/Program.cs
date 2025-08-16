@@ -23,7 +23,18 @@ namespace AvalonMozi.Backend
 
             builder.Services.AddControllers();
 
-            // CORS HERE
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowList",
+                    builder =>
+                    {
+#if DEBUG
+                        builder.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader().AllowCredentials();
+#else
+                        builder.WithOrigins("https://avalonmozi.testdev.hu").AllowAnyMethod().AllowAnyHeader().AllowCredentials();
+#endif
+                    });
+            });
 
             var jwtSettings = builder.Configuration.GetSection("Jwt");
             builder.Services.AddAuthentication(options =>
@@ -101,6 +112,8 @@ namespace AvalonMozi.Backend
                 app.UseOpenApi(); // Serve the OpenAPI/Swagger document
                 app.UseSwaggerUi(); // Serve the Swagger UI
             }
+
+            app.UseCors("AllowList");
 
             app.UseHttpsRedirection();
 

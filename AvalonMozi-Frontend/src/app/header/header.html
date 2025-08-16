@@ -1,0 +1,18 @@
+<div class="flex flex-wrap justify-center mt-1">
+    <div class="mt-auto">
+        <img src="/assets/Logo_Transparent_Colorful_Rectangle.png" class="w-50 md:w-70 lg:w-90"/>
+    </div>
+</div>
+
+<div class="card" class="mb-3 mx-2 md:mx-40 lg:mx-50 xl:mx-100">
+    <p-menubar [model]="items">
+        <ng-template pTemplate="end">
+            <a routerLink="/bejelentkezes" pButton class="mr-1">
+                <span pButtonLabel>Bejelentkezés</span>
+            </a>
+            <a routerLink="/regisztracio" pButton>
+                <span pButtonLabel>Regisztráció</span>
+            </a>
+        </ng-template>
+    </p-menubar>
+</div>

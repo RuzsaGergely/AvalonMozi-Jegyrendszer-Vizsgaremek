@@ -35,7 +35,7 @@ export class MovieClient implements IMovieClient {
     }
 
     getMovies(): Observable<MovieDto[]> {
-        let url_ = this.baseUrl + "/api/Movie";
+        let url_ = this.baseUrl + "/api/Movie/GetMovies";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -586,6 +586,7 @@ export class MovieDto implements IMovieDto {
     ageRestriction!: string;
     ticketPrice!: number;
     dates!: MovieDateDto[];
+    coverImageBase64!: string | undefined;
 
     constructor(data?: IMovieDto) {
         if (data) {
@@ -609,6 +610,7 @@ export class MovieDto implements IMovieDto {
                 for (let item of _data["dates"])
                     this.dates!.push(MovieDateDto.fromJS(item));
             }
+            this.coverImageBase64 = _data["coverImageBase64"];
         }
     }
 
@@ -632,6 +634,7 @@ export class MovieDto implements IMovieDto {
             for (let item of this.dates)
                 data["dates"].push(item ? item.toJSON() : undefined as any);
         }
+        data["coverImageBase64"] = this.coverImageBase64;
         return data;
     }
 }
@@ -644,6 +647,7 @@ export interface IMovieDto {
     ageRestriction: string;
     ticketPrice: number;
     dates: MovieDateDto[];
+    coverImageBase64: string | undefined;
 }
 
 export class MovieDateDto implements IMovieDateDto {

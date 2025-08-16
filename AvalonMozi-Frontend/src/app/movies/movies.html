@@ -1,0 +1,13 @@
+<app-header></app-header>
+
+<p-card header="Filmek" styleClass="ml-2 mr-2">
+    <p>Itt találhatóak meg azok a filmek, amelyeket a közeljövőben vetíteni fogunk az Avalon moziban. Fontos, hogy jegyet csak bejelentkezést követően lehet kosárba tenni!</p>
+    
+    @for (movie of moviesFromServer; track movie) {
+        <p-card styleClass="mb-2">
+            <img src="{{ movie.coverImageBase64}}" />
+        </p-card>
+    }
+    
+
+</p-card>

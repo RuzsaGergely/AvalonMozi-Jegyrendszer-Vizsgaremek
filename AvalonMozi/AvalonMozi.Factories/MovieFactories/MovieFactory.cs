@@ -32,7 +32,8 @@ namespace AvalonMozi.Factories.MovieFactories
                 TechnicalId = Guid.NewGuid().ToString(),
                 TicketPrice = dto.TicketPrice,
                 Title = dto.Title,
-                Dates = new List<MovieDate>()
+                Dates = new List<MovieDate>(),
+                CoverImageBase64 = dto.CoverImageBase64
             };
 
             foreach (var item in dto.Dates)
@@ -52,7 +53,8 @@ namespace AvalonMozi.Factories.MovieFactories
                 TechnicalId = entity.TechnicalId,
                 TicketPrice = entity.TicketPrice,
                 Title = entity.Title,
-                Dates = new List<MovieDateDto>()
+                Dates = new List<MovieDateDto>(),
+                CoverImageBase64 = entity.CoverImageBase64
             };
 
             foreach (var item in entity.Dates)
