@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Header } from '../header/header';
 import { LocalSharedModule } from '../localshared/local-shared-module';
 import { MovieClient, MovieDto } from '../../services/moziHttpClient';
+import { Footer } from '../footer/footer';
 
 @Component({
   selector: 'app-movies',
   imports: [
     LocalSharedModule,
-    Header
+    Header,
+    Footer
   ],
   templateUrl: './movies.html',
   styleUrl: './movies.css'

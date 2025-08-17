@@ -1,13 +1,19 @@
 <app-header></app-header>
 
-<p-card header="Filmek" styleClass="ml-2 mr-2">
+<p-card header="Filmek" styleClass=" mx-2 md:mx-40 lg:mx-50 xl:mx-100">
     <p>Itt találhatóak meg azok a filmek, amelyeket a közeljövőben vetíteni fogunk az Avalon moziban. Fontos, hogy jegyet csak bejelentkezést követően lehet kosárba tenni!</p>
     
-    @for (movie of moviesFromServer; track movie) {
-        <p-card styleClass="mb-2">
-            <img src="{{ movie.coverImageBase64}}" />
-        </p-card>
-    }
-    
-
+    <div class="flex flex-wrap justify-center mt-5">
+        <span class="inline-grid grid-cols-4 gap-2 mt-5">
+            @for (movie of moviesFromServer; track movie) {
+                <span>
+                    <a [routerLink]="['/film', movie.technicalId]">
+                        <img src="{{ movie.coverImageBase64}}" class="h-80"/>
+                    </a>
+                </span>
+            }
+        </span>
+    </div>
 </p-card>
+
+<app-footer></app-footer>
