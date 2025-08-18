@@ -7,7 +7,7 @@
         <span class="inline-grid grid-cols-4 gap-2 mt-5">
             @for (movie of moviesFromServer; track movie) {
                 <span>
-                    <a [routerLink]="['/film', movie.technicalId]">
+                    <a [routerLink]="['/film', movie.seoFriendlyTitle]">
                         <img src="{{ movie.coverImageBase64}}" class="h-80"/>
                     </a>
                 </span>

@@ -5,6 +5,10 @@ import { SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { RouterModule } from '@angular/router';
 import { CardModule } from 'primeng/card';
+import { TableModule } from 'primeng/table';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextModule } from 'primeng/inputtext';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -16,7 +20,11 @@ import { CardModule } from 'primeng/card';
     MenubarModule,
     ButtonModule,
     RouterModule,
-    CardModule
+    CardModule,
+    TableModule,
+    FormsModule,
+    InputNumberModule,
+    InputTextModule
   ],
   exports: [
     CommonModule,
@@ -24,7 +32,11 @@ import { CardModule } from 'primeng/card';
     MenubarModule,
     ButtonModule,
     RouterModule,
-    CardModule
+    CardModule,
+    TableModule,
+    FormsModule,
+    InputNumberModule,
+    InputTextModule
   ]
 })
 export class LocalSharedModule { }

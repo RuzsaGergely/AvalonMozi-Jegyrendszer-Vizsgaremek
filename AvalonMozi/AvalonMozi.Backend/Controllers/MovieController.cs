@@ -27,6 +27,20 @@ namespace AvalonMozi.Backend.Controllers
             return _movieFactory.ConvertEntityListToDtoList(await _movieService.GetMovies());
         }
 
+        [HttpGet("GetMovieByTechnicalId")]
+        [AllowAnonymous]
+        public async Task<MovieDto> GetMovieByTechnicalId(string technicalId)
+        {
+            return _movieFactory.ConvertEntityToDto(await _movieService.GetMovieByTechnicalId(technicalId));
+        }
+
+        [HttpGet("GetMovieBySeoTitle")]
+        [AllowAnonymous]
+        public async Task<MovieDto> GetMovieBySeoTitle(string seotitle)
+        {
+            return _movieFactory.ConvertEntityToDto(await _movieService.GetMovieBySeoTitle(seotitle));
+        }
+
         [HttpPost("AddMovie")]
         public async Task<IActionResult> AddMovie(MovieDto movie)
         {

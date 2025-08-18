@@ -11,6 +11,8 @@ namespace AvalonMozi.Application.Movies.Services
     public interface IMovieService
     {
         Task<List<Movie>> GetMovies();
+        Task<Movie> GetMovieByTechnicalId(string technicalid);
+        Task<Movie> GetMovieBySeoTitle(string seotitle);
         Task<bool> AddNewMovie(Movie movie);
         Task<bool> UpdateMovie(MovieDto dto);
         Task DeleteMovie(string technicalId);

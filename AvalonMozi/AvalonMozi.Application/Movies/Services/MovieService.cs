@@ -78,5 +78,15 @@ namespace AvalonMozi.Application.Movies.Services
                 await _context.SaveChangesAsync();
             }
         }
+
+        public async Task<Movie> GetMovieByTechnicalId(string technicalid)
+        {
+            return await _context.Movies.Where(x => x.TechnicalId == technicalid).FirstOrDefaultAsync();
+        }
+
+        public async Task<Movie> GetMovieBySeoTitle(string seotitle)
+        {
+            return await _context.Movies.Where(x => x.SeoFriendlyTitle == seotitle).FirstOrDefaultAsync();
+        }
     }
 }

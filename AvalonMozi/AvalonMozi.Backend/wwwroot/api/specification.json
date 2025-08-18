@@ -29,6 +29,66 @@
         }
       }
     },
+    "/api/Movie/GetMovieByTechnicalId": {
+      "get": {
+        "tags": [
+          "Movie"
+        ],
+        "operationId": "Movie_GetMovieByTechnicalId",
+        "parameters": [
+          {
+            "name": "technicalId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MovieDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Movie/GetMovieBySeoTitle": {
+      "get": {
+        "tags": [
+          "Movie"
+        ],
+        "operationId": "Movie_GetMovieBySeoTitle",
+        "parameters": [
+          {
+            "name": "seotitle",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MovieDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Movie/AddMovie": {
       "post": {
         "tags": [
