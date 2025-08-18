@@ -501,7 +501,7 @@ export class TicketClient implements ITicketClient {
 }
 
 export interface IUserClient {
-    login(email: string | undefined, password: string | undefined): Observable<FileResponse>;
+    login(email: string | undefined, password: string | undefined): Observable<string>;
     getUserProfile(): Observable<UserDto>;
     generatePassword(password: string | undefined): Observable<FileResponse>;
 }
@@ -519,7 +519,7 @@ export class UserClient implements IUserClient {
         this.baseUrl = baseUrl ?? "";
     }
 
-    login(email: string | undefined, password: string | undefined): Observable<FileResponse> {
+    login(email: string | undefined, password: string | undefined): Observable<string> {
         let url_ = this.baseUrl + "/api/User/Login?";
         if (email === null)
             throw new globalThis.Error("The parameter 'email' cannot be null.");
@@ -535,7 +535,7 @@ export class UserClient implements IUserClient {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/octet-stream"
+                "Accept": "application/json"
             })
         };
 
@@ -546,31 +546,28 @@ export class UserClient implements IUserClient {
                 try {
                     return this.processLogin(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<FileResponse>;
+                    return _observableThrow(e) as any as Observable<string>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<FileResponse>;
+                return _observableThrow(response_) as any as Observable<string>;
         }));
     }
 
-    protected processLogin(response: HttpResponseBase): Observable<FileResponse> {
+    protected processLogin(response: HttpResponseBase): Observable<string> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
             (response as any).error instanceof Blob ? (response as any).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200 || status === 206) {
-            const contentDisposition = response.headers ? response.headers.get("content-disposition") : undefined;
-            let fileNameMatch = contentDisposition ? /filename\*=(?:(\\?['"])(.*?)\1|(?:[^\s]+'.*?')?([^;\n]*))/g.exec(contentDisposition) : undefined;
-            let fileName = fileNameMatch && fileNameMatch.length > 1 ? fileNameMatch[3] || fileNameMatch[2] : undefined;
-            if (fileName) {
-                fileName = decodeURIComponent(fileName);
-            } else {
-                fileNameMatch = contentDisposition ? /filename="?([^"]*?)"?(;|$)/g.exec(contentDisposition) : undefined;
-                fileName = fileNameMatch && fileNameMatch.length > 1 ? fileNameMatch[1] : undefined;
-            }
-            return _observableOf({ fileName: fileName, data: responseBlob as any, status: status, headers: _headers });
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result200 = resultData200 !== undefined ? resultData200 : null as any;
+    
+            return _observableOf(result200);
+            }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);

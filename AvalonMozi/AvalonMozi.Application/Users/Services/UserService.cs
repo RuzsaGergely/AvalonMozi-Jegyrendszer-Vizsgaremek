@@ -35,6 +35,10 @@ namespace AvalonMozi.Application.Users.Services
         public async Task<UserDto> AuthenticateUser(string email, string password)
         {
             var user = await _database.Users.Include(x=>x.Roles).Where(x => x.Email == email && HashPassword(password) == x.PasswordHash).FirstOrDefaultAsync();
+            if(user is null)
+            {
+                return null;
+            }
             return _userFactory.ConvertEntityToDto(user);
         }
 

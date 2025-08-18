@@ -9,6 +9,9 @@ import { TableModule } from 'primeng/table';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
+import { PasswordModule } from 'primeng/password';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { ToastModule } from 'primeng/toast';
 
 
 
@@ -24,7 +27,10 @@ import { FormsModule } from '@angular/forms';
     TableModule,
     FormsModule,
     InputNumberModule,
-    InputTextModule
+    InputTextModule,
+    PasswordModule,
+    FloatLabelModule,
+    ToastModule
   ],
   exports: [
     CommonModule,
@@ -36,7 +42,10 @@ import { FormsModule } from '@angular/forms';
     TableModule,
     FormsModule,
     InputNumberModule,
-    InputTextModule
+    InputTextModule,
+    PasswordModule,
+    FloatLabelModule,
+    ToastModule
   ]
 })
 export class LocalSharedModule { }

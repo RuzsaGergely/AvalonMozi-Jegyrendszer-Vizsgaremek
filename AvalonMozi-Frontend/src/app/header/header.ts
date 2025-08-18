@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalSharedModule } from '../localshared/local-shared-module';
 import { MenuItem } from 'primeng/api';
+import { AuthService } from '../../services/auth-service';
 
 @Component({
   selector: 'app-header',
@@ -12,6 +13,15 @@ import { MenuItem } from 'primeng/api';
 })
 export class Header implements OnInit {
   items: MenuItem[] | undefined;
+
+  /**
+   *
+   */
+  constructor(
+    public authService: AuthService
+  ) {
+    
+  }
 
     ngOnInit() {
         this.items = [

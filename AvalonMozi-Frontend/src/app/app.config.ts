@@ -6,11 +6,12 @@ import Aura from '@primeuix/themes/aura';
 import { definePreset } from '@primeuix/themes';
 
 import { routes } from './app.routes';
-import { provideHttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { provideClientHydration } from '@angular/platform-browser';
 import { environment } from '../environments/environment';
 
 import { API_BASE_URL } from '../services/moziHttpClient';
+import { JwtInterceptorService } from '../services/jwt-interceptor.service';
 
 const customPreset = definePreset(Aura, {
   semantic: {
@@ -50,8 +51,12 @@ export const appConfig: ApplicationConfig = {
     }),
     provideClientHydration(),
     { 
-      provide: API_BASE_URL, useValue: environment.apiBaseUrl 
+      provide: API_BASE_URL, useValue: environment.apiBaseUrl },
+      provideHttpClient(withInterceptorsFromDi()),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptorService,
+      multi: true,
     },
-    provideHttpClient()
   ]
 };

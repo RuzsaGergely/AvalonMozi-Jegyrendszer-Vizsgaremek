@@ -6,6 +6,14 @@
 
 <div class="card" class="mb-3 mx-2 md:mx-40 lg:mx-50 xl:mx-100">
     <p-menubar [model]="items">
+        @if(authService.isLoggedIn) {
+        <ng-template pTemplate="end">
+            <p-button icon="pi pi-sign-out" [rounded]="true" severity="danger" (onClick)="authService.logout()" />
+
+        </ng-template>
+        } 
+
+        @if(!authService.isLoggedIn) {
         <ng-template pTemplate="end">
             <a routerLink="/bejelentkezes" pButton class="mr-1">
                 <span pButtonLabel>Bejelentkezés</span>
@@ -14,5 +22,7 @@
                 <span pButtonLabel>Regisztráció</span>
             </a>
         </ng-template>
+        }
+
     </p-menubar>
 </div>

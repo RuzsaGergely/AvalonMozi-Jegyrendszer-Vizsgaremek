@@ -24,16 +24,16 @@ namespace AvalonMozi.Backend.Controllers
 
         [HttpPost("Login")]
         [AllowAnonymous]
-        public async Task<IActionResult> Login(string email, string password)
+        public async Task<string> Login(string email, string password)
         {
             var user = await _userService.AuthenticateUser(email, password);
             if (user is not null)
             {
                 var token = _jwtAuthManager.GenerateToken(user);
-                return Ok(token);
+                return token;
             }
 
-            return Unauthorized("ERROR_INVALID_USERNAME_OR_PASSWORD");
+            return "ERROR_INVALID_USERNAME_OR_PASSWORD";
         }
 
         [HttpGet("GetUserProfile")]
