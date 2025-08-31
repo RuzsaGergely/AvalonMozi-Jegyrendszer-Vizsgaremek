@@ -49,7 +49,6 @@ export const appConfig: ApplicationConfig = {
           },
         }
     }),
-    provideClientHydration(),
     { 
       provide: API_BASE_URL, useValue: environment.apiBaseUrl },
       provideHttpClient(withInterceptorsFromDi()),

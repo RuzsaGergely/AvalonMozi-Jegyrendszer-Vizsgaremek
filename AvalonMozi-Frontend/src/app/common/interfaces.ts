@@ -3,7 +3,9 @@ export interface CartItem {
     dateTechnicalId: string,
     movieReadable: string,
     dateReadable: string,
-    qty: number
+    qty: number,
+    uid: number,
+    ticketprice: number
 }
 
 export interface Cart {

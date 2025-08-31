@@ -19,6 +19,7 @@
                 <th>Vetítés kezdete</th>
                 <th>Vetítés vége</th>
                 <th>Mennyiség</th>
+                <th></th>
             </tr>
         </ng-template>
         <ng-template #body let-date>
@@ -27,6 +28,7 @@
                 <td>{{date.dateFrom | date:"HH:mm"}}</td>
                 <td>{{date.dateTo | date:"HH:mm"}}</td>
                 <td><p-inputnumber [showButtons]="true" inputId="minmax-buttons" [min]="0" [max]="100" [(ngModel)]="selectedItems[date.technicalId!].qty" /></td>
+                <td><p-button label="Kosárba" icon="pi pi-cart-plus" iconPos="right" (onClick)="addToCart(selectedItems[date.technicalId!].qty, movie!, date)"/></td>
             </tr>
         </ng-template>
     </p-table>
@@ -34,5 +36,7 @@
 </div>
 
 </p-card>
+<p-toast position="top-right"></p-toast> 
+
 
 <app-footer></app-footer> 

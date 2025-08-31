@@ -5,7 +5,7 @@ import { Register } from './register/register';
 import { Contact } from './contact/contact';
 import { Feedback } from './feedback/feedback';
 import { Movies } from './movies/movies';
-import { MovieBySeoTitle } from './movie-by-id/movie-by-seotitle';
+import { MovieBySeoTitle } from './movie-by-seotitle/movie-by-seotitle';
 import { Cart } from './cart/cart';
 import { AdminDashboard } from './admin-dashboard/admin-dashboard';
 import { AdminTicketcheck } from './admin-ticketcheck/admin-ticketcheck';

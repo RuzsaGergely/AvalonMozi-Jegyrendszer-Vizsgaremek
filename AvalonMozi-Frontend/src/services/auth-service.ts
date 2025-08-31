@@ -23,6 +23,8 @@ export class AuthService {
   logout(): void {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.removeItem('token');
+      localStorage.removeItem('cart')
+      localStorage.removeItem('userprofile')
       this.router.navigate(['kezdolap']).then(() => {
             window.location.reload();
         });

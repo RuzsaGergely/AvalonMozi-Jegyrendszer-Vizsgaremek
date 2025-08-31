@@ -1,7 +1,34 @@
 <app-header></app-header>
 
 <p-card header="Kosár" styleClass="mx-2 md:mx-40 lg:mx-50 xl:mx-100">
+    @if(this.cartHandler.getCart.cartItems.length > 0) {
+        <p-table [value]="this.cartHandler.getCart.cartItems" stripedRows size="small">
+            <ng-template #header>
+                <tr>
+                    <th>Film</th>
+                    <th>Vetítés dátuma</th>
+                    <th>Db.</th>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template #body let-cartItem>
+                <tr>
+                    <td>{{ cartItem.movieReadable }}</td>
+                    <td>{{ cartItem.dateReadable }}</td>
+                    <td>{{ cartItem.qty }}</td>
+                    <td><p-button label="Törlés" severity="danger" icon="pi pi-cart-minus" iconPos="right" onclick="this.removeFromCart(cartItem.uid)" size="small" /></td>
+                </tr>
+            </ng-template>
+        </p-table>
 
+        <p class="text-right text-lg font-bold mt-5">Összesen fizetendő: br. {{ this.cartHandler.getCart.priceWithVat }} Ft</p>
+        <p class="text-right text-sm">(nettó {{ this.cartHandler.getCart.priceWithoutVat }} Ft)</p>
+    }
+
+    @if(this.cartHandler.getCart.cartItems == null || this.cartHandler.getCart.cartItems.length == 0) {
+        <p class="text-center font-bold text-xl">A kosár üres!</p>
+    }
+    
 </p-card>
 
 <app-footer></app-footer>
