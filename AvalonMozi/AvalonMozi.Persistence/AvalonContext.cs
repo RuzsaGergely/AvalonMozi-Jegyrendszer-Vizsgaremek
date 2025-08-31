@@ -1,4 +1,5 @@
 ﻿using AvalonMozi.Domain.Common;
+using AvalonMozi.Domain.Feedbacks;
 using AvalonMozi.Domain.Movies;
 using AvalonMozi.Domain.Orders;
 using AvalonMozi.Domain.Tickets;
@@ -28,6 +29,10 @@ namespace AvalonMozi.Persistence
         #region Movie related contexts
         public DbSet<Movie> Movies { get; set; }
         public DbSet<MovieDate> MovieDates { get; set; }
+        #endregion
+
+        #region Feedback related contexts
+        public DbSet<Feedback> Feedbacks { get; set; }
         #endregion
 
         public AvalonContext(DbContextOptions<AvalonContext> options) : base(options)

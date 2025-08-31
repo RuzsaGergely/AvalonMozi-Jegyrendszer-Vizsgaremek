@@ -6,6 +6,10 @@ import { Contact } from './contact/contact';
 import { Feedback } from './feedback/feedback';
 import { Movies } from './movies/movies';
 import { MovieBySeoTitle } from './movie-by-id/movie-by-seotitle';
+import { Cart } from './cart/cart';
+import { AdminDashboard } from './admin-dashboard/admin-dashboard';
+import { AdminTicketcheck } from './admin-ticketcheck/admin-ticketcheck';
+import { AdminLanding } from './admin-landing/admin-landing';
 
 export const routes: Routes = [
     { path: 'bejelentkezes', component: Login },
@@ -15,6 +19,9 @@ export const routes: Routes = [
     { path: 'visszajelzes', component: Feedback },
     { path: 'filmek', component: Movies },
     { path: 'film/:seotitle', component: MovieBySeoTitle },
-    { path: '*', component: Home },
-    { path: '', component: Home }
+    { path: 'kosar', component: Cart },
+    { path: 'admin/vezerlopult', component: AdminDashboard },
+    { path: 'admin/jegyellenorzes', component: AdminTicketcheck },
+    { path: 'admin', component: AdminLanding },
+    { path: '**', redirectTo: "/kezdolap" },
 ];

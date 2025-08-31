@@ -53,4 +53,17 @@ export class AuthService {
       return false;
     }
   }
+
+    public get isCustomer(): boolean {
+    if (isPlatformBrowser(this.platformId)) {
+      var userProfileFromStorage = localStorage.getItem('userprofile');
+      if(!userProfileFromStorage) {
+        return false;
+      }
+      let userProfile = JSON.parse(atob(userProfileFromStorage) ?? "") as UserDto
+      return userProfile.roles.some(x=> x.technicalName == "CUSTOMER")
+    } else {
+      return false;
+    }
+  }
 }
