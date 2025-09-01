@@ -1,15 +1,15 @@
-﻿using AvalonMozi.Application.Users.Services;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using AvalonMozi.Application.Users.Dto;
+using AvalonMozi.Application.Users.Services;
+using AvalonMozi.Factories.UserFactories;
 using AvalonMozi.Factories.UserFactories.Dto;
 using Microsoft.AspNetCore.Authorization;
-using AvalonMozi.Factories.UserFactories;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AvalonMozi.Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "ADMIN,EMPLOYEE")]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -34,6 +34,18 @@ namespace AvalonMozi.Backend.Controllers
             }
 
             return "ERROR_INVALID_USERNAME_OR_PASSWORD";
+        }
+
+        [HttpPost("Register")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Register(UserRegisterDto dto)
+        {
+            var result = await _userService.RegisterAccount(dto);
+            if(result)
+            {
+                return Ok();
+            }
+            return BadRequest();
         }
 
         [HttpGet("GetUserProfile")]

@@ -1,5 +1,6 @@
-﻿using AvalonMozi.Factories.UserFactories.Dto;
+﻿using AvalonMozi.Application.Users.Dto;
 using AvalonMozi.Domain.Users;
+using AvalonMozi.Factories.UserFactories.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace AvalonMozi.Application.Users.Services
         Task<User> GetUserByEmail(string email);
         Task<UserDto> AuthenticateUser(string email, string password);
         string HashPassword(string password);
+        Task<bool> RegisterAccount(UserRegisterDto dto);
 
     }
 }

@@ -1,4 +1,7 @@
-﻿using AvalonMozi.Domain.Users;
+﻿using AvalonMozi.Application.Users.Dto;
+using AvalonMozi.Domain.Users;
+using AvalonMozi.Factories.UserFactories;
+using AvalonMozi.Factories.UserFactories.Dto;
 using AvalonMozi.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -7,8 +10,6 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using AvalonMozi.Factories.UserFactories;
-using AvalonMozi.Factories.UserFactories.Dto;
 
 namespace AvalonMozi.Application.Users.Services
 {
@@ -50,6 +51,40 @@ namespace AvalonMozi.Application.Users.Services
                 var hashBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(Password));
                 return Convert.ToBase64String(hashBytes);
             }
+        }
+
+        public async Task<bool> RegisterAccount(UserRegisterDto dto)
+        {
+            if(await _database.Users.AnyAsync(x=>x.Email == dto.Email))
+            {
+                return false;
+            }
+
+            var newUser = new User()
+            {
+                Email = dto.Email,
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
+                Phone = dto.Phone,
+                PasswordHash = this.HashPassword(dto.Password),
+                TechnicalId = Guid.NewGuid().ToString(),
+                Roles = new List<Role>()
+                {
+                    await _database.Roles.FirstOrDefaultAsync(x=>x.TechnicalName == "CUSTOMER")
+                },
+                Deleted = false,
+                LastSuccessfulLoginTime = new DateTime(1970,1,1)
+            };
+
+            var userOperation = await _database.Users.AddAsync(newUser);
+            await _database.SaveChangesAsync();
+
+            if(newUser.Id > 0)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }
