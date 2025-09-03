@@ -13,6 +13,7 @@ import { PasswordModule } from 'primeng/password';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { ToastModule } from 'primeng/toast';
 import { ImageModule } from 'primeng/image';
+import { TextareaModule } from 'primeng/textarea';
 
 
 
@@ -32,7 +33,8 @@ import { ImageModule } from 'primeng/image';
     PasswordModule,
     FloatLabelModule,
     ToastModule,
-    ImageModule
+    ImageModule,
+    TextareaModule
   ],
   exports: [
     CommonModule,
@@ -48,7 +50,8 @@ import { ImageModule } from 'primeng/image';
     PasswordModule,
     FloatLabelModule,
     ToastModule,
-    ImageModule
+    ImageModule,
+    TextareaModule
   ]
 })
 export class LocalSharedModule { }

@@ -443,15 +443,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "JWT": [
-              "ADMIN",
-              "EMPLOYEE"
-            ]
-          }
-        ]
+        }
       }
     }
   },

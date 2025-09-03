@@ -1,1 +1,69 @@
-<p>feedback works!</p>
+<app-header></app-header>
+
+<p-card header="Visszajelzés" styleClass="mx-2 md:mx-40 lg:mx-50 xl:mx-100">
+
+    @if(this.showForm) {
+    <div>
+        <div class="flex flex-wrap mt-1">
+            <p-floatlabel variant="on" class="mb-3">
+                <input pInputText id="name_label" [(ngModel)]="this.feedbackData.name" autocomplete="off" class="w-100"
+                    required />
+                <label for="name_label">Az Ön neve *</label>
+            </p-floatlabel>
+        </div>
+
+        <div class="flex flex-wrap mt-1">
+            <p-floatlabel variant="on" class="mb-3">
+                <input pInputText id="email_label" [(ngModel)]="this.feedbackData.email" autocomplete="off"
+                    class="w-100" required />
+                <label for="email_label">Email cím *</label>
+            </p-floatlabel>
+        </div>
+
+        <div class="flex flex-wrap mt-1">
+            <p-floatlabel variant="on" class="mb-3">
+                <input pInputText id="phone_label" [(ngModel)]="this.feedbackData.phone" autocomplete="off"
+                    class="w-100" />
+                <label for="phone_label">Telefonszám</label>
+            </p-floatlabel>
+        </div>
+
+        <div class="flex flex-wrap mt-1">
+            <p-floatlabel variant="on">
+                <textarea pTextarea id="message_label" [(ngModel)]="this.feedbackData.message" rows="5" cols="50"
+                    style="resize: none" class="h-full"></textarea>
+                <label for="message_label">Üzenet</label>
+            </p-floatlabel>
+        </div>
+
+        <div class="flex flex-wrap justify-center mt-2">
+            <p-button label="Elküldés" icon="pi pi-arrow-right" iconPos="right" (onClick)="sendFeedback()" />
+        </div>
+    </div>
+    }
+
+    @if(this.showSuccess) {
+    <div>
+        <div class="flex flex-wrap justify-center mt-2">
+            <i class="pi pi-check" style="color: green; font-size: 10rem"></i>
+        </div>
+        <h2 class="text-2xl font-bold text-center mb-5">Köszönjük visszajelzését!</h2>
+        <p class="text-center">Folytasd a böngészésed! Kattints a <a href="/filmek">Filmek</a> oldalra például!</p>
+    </div>
+    }
+
+    @if(this.showFailed) {
+    <div>
+        <div class="flex flex-wrap justify-center mt-2">
+            <i class="pi pi-times" style="color: red; font-size: 10rem"></i>
+        </div>
+        <h2 class="text-2xl font-bold text-center mb-5">Elnézést kérünk, valami nem sikerült...</h2>
+        <p class="text-center">Kérjük töltsd újra az oldalt az F5 gomb segítségével vagy próbáld újra később!</p>
+    </div>
+    }
+
+</p-card>
+
+<p-toast position="top-right"></p-toast>
+
+<app-footer></app-footer>
