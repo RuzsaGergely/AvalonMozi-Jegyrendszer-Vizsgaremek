@@ -28,6 +28,8 @@
 
         <p class="text-right text-lg font-bold mt-5">Összesen fizetendő: br. {{ this.cartHandler.getCart.priceWithVat }} Ft</p>
         <p class="text-right text-sm">(nettó {{ this.cartHandler.getCart.priceWithoutVat }} Ft)</p>
+
+        <p-button label="Pénztárhoz" icon="pi pi-arrow-right" iconPos="right" routerLink="/penztar" />
     }
 
     @if(this.cartHandler.getCart.cartItems == null || this.cartHandler.getCart.cartItems.length == 0) {

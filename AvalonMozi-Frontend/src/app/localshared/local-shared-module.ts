@@ -14,6 +14,8 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { ToastModule } from 'primeng/toast';
 import { ImageModule } from 'primeng/image';
 import { TextareaModule } from 'primeng/textarea';
+import { SelectModule } from 'primeng/select';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 
 
@@ -34,7 +36,9 @@ import { TextareaModule } from 'primeng/textarea';
     FloatLabelModule,
     ToastModule,
     ImageModule,
-    TextareaModule
+    TextareaModule,
+    SelectModule,
+    RadioButtonModule
   ],
   exports: [
     CommonModule,
@@ -51,7 +55,9 @@ import { TextareaModule } from 'primeng/textarea';
     FloatLabelModule,
     ToastModule,
     ImageModule,
-    TextareaModule
+    TextareaModule,
+    SelectModule,
+    RadioButtonModule
   ]
 })
 export class LocalSharedModule { }

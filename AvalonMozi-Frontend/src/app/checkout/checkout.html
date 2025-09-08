@@ -1,0 +1,38 @@
+<app-header></app-header>
+
+<p-card header="Pénztár" styleClass="mx-2 md:mx-40 lg:mx-50 xl:mx-100">
+    @if(this.cartHandler.getCart.cartItems.length > 0) {
+
+    <div class="flex flex-col gap-4">
+        <div *ngFor="let billingInfo of billingInformations" class="field-checkbox">
+            <div class="flex">
+                <div class="w-10 flex-none">
+                    <p-radiobutton [inputId]="billingInfo.technicalId" name="category" [value]="billingInfo"
+                        [(ngModel)]="selectedBillingInformation" />
+                </div>
+                <div class="w-64 flex-1">
+                    <label [for]="billingInfo.technicalId">
+                        {{ billingInfo.name }}
+                        <br>
+                        {{ billingInfo.zipCode }} {{ billingInfo.city }} ({{ billingInfo.county }} megye) {{
+                        billingInfo.address1 }} {{ billingInfo.address2 }}
+                        @if(billingInfo.companyName != null && billingInfo.vatNumber != null) {
+                            <br>
+                            {{ billingInfo.companyName }} ({{ billingInfo.vatNumber }})
+                        }
+                        
+                    </label>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <p class="text-right text-lg font-bold mt-5">Összesen fizetendő: br. {{ this.cartHandler.getCart.priceWithVat }} Ft
+    </p>
+    <p class="text-right text-sm">(nettó {{ this.cartHandler.getCart.priceWithoutVat }} Ft)</p>
+    }
+</p-card>
+
+<app-footer></app-footer>
