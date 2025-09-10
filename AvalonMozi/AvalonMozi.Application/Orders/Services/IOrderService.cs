@@ -1,4 +1,5 @@
 ﻿using AvalonMozi.Application.Orders.Dto;
+using AvalonMozi.Domain.Orders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,6 @@ namespace AvalonMozi.Application.Orders.Services
     public interface IOrderService
     {
         Task<string> ProcessOrderRequest(OrderRequestDto orderDto);
+        Task<List<BillingInformation>> GetBillingInformations(string usertechid);
     }
 }

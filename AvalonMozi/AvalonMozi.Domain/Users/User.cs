@@ -1,4 +1,5 @@
 ﻿using AvalonMozi.Domain.Common;
+using AvalonMozi.Domain.Orders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,5 +18,6 @@ namespace AvalonMozi.Domain.Users
         public string PasswordHash { get; set; }
         public DateTime LastSuccessfulLoginTime { get; set; } = new DateTime(1970, 1, 1);
         public List<Role> Roles { get; set; } = new List<Role>();
+        public List<BillingInformation> BillingInformations { get; set; } = new List<BillingInformation>();
     }
 }

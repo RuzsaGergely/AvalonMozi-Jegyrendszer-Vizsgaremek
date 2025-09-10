@@ -25,12 +25,27 @@ namespace AvalonMozi.Application.Orders.Services
             _context = context;
             _ticketService = ticketService;
         }
+
+        public async Task<List<BillingInformation>> GetBillingInformations(string usertechid)
+        {
+            var user = await _context.Users.Include(x=>x.BillingInformations).Where(x=>x.TechnicalId == usertechid).FirstOrDefaultAsync();
+            return user.BillingInformations;
+        }
+
         public async Task<string> ProcessOrderRequest(OrderRequestDto orderDto)
         {
             // Create entity with billing data, technical ID and User attachment
             var newOrder = new Order()
             {
-                BillingInfo = new BillingInformation()
+                User = await _context.Users.FirstOrDefaultAsync(x => x.TechnicalId == orderDto.UserTechnicalId),
+                TechnicalId = Guid.NewGuid().ToString(),
+                Items = new List<OrderItem>()
+            };
+
+            if(orderDto.BillingInfo.TechnicalId == "NEWBILLINGINFO")
+            {
+                var user = await _context.Users.FirstOrDefaultAsync(x => x.TechnicalId == orderDto.UserTechnicalId);
+                var newBillingInfo = new BillingInformation()
                 {
                     Address1 = orderDto.BillingInfo.Address1,
                     Address2 = orderDto.BillingInfo.Address2,
@@ -40,12 +55,17 @@ namespace AvalonMozi.Application.Orders.Services
                     Name = orderDto.BillingInfo.Name,
                     VATNumber = orderDto.BillingInfo.VATNumber,
                     ZipCode = orderDto.BillingInfo.ZipCode,
-                    Deleted = false
-                },
-                User = await _context.Users.FirstOrDefaultAsync(x => x.TechnicalId == orderDto.UserTechnicalId),
-                TechnicalId = Guid.NewGuid().ToString(),
-                Items = new List<OrderItem>()
-            };
+                    Deleted = false,
+                    TechnicalId = Guid.NewGuid().ToString()
+                };
+                user.BillingInformations.Add(newBillingInfo);
+                await _context.SaveChangesAsync();
+                newOrder.BillingInfo = newBillingInfo;
+            } else
+            {
+                var billingData = await _context.BillingInformations.Where(x=>x.TechnicalId == orderDto.BillingInfo.TechnicalId).FirstOrDefaultAsync();
+                newOrder.BillingInfo = billingData;
+            }
 
             // add ordered movies and dates to order items
             foreach (var item in orderDto.Items)

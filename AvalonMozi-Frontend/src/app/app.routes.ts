@@ -11,6 +11,7 @@ import { AdminDashboard } from './admin-dashboard/admin-dashboard';
 import { AdminTicketcheck } from './admin-ticketcheck/admin-ticketcheck';
 import { AdminLanding } from './admin-landing/admin-landing';
 import { Checkout } from './checkout/checkout';
+import { Tickets } from './tickets/tickets';
 
 export const routes: Routes = [
     { path: 'bejelentkezes', component: Login },
@@ -22,6 +23,7 @@ export const routes: Routes = [
     { path: 'film/:seotitle', component: MovieBySeoTitle },
     { path: 'kosar', component: Cart },
     { path: 'penztar', component: Checkout },
+    { path: 'jegyeim', component: Tickets },
     { path: 'admin/vezerlopult', component: AdminDashboard },
     { path: 'admin/jegyellenorzes', component: AdminTicketcheck },
     { path: 'admin', component: AdminLanding },

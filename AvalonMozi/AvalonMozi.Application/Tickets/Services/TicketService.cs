@@ -3,10 +3,12 @@ using AvalonMozi.Domain.Orders;
 using AvalonMozi.Domain.Tickets;
 using AvalonMozi.Domain.Users;
 using AvalonMozi.Persistence;
+using Azure;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -55,6 +57,38 @@ namespace AvalonMozi.Application.Tickets.Services
                 Deleted = false,
                 TicketData = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(ticketContent))
             };
+        }
+
+        public async Task<List<UserTicketDto>> GetUserTickets(string userId)
+        {
+            var returnList = new List<UserTicketDto>();
+
+            var orders = await _context.Orders.Include(x=>x.Items).ThenInclude(x=> x.SelectedDateTime).Include(x => x.Items).ThenInclude(x => x.Movie).Where(x=>x.User.TechnicalId == userId).ToListAsync();
+            foreach (var order in orders)
+            {
+                foreach (var orderItem in order.Items)
+                {
+                    var ticket = await _context.Tickets.Where(x=>x.AssignedTo.TechnicalId == orderItem.TechnicalId).FirstOrDefaultAsync();
+                    var newTicketResponse = new UserTicketDto()
+                    {
+                        TicketData = ticket.TicketData,
+                        MovieDate = $"{orderItem.SelectedDateTime.DateFrom.ToString()} - {orderItem.SelectedDateTime.DateTo.ToString()}",
+                        MovieName = orderItem.Movie.Title
+                    };
+
+                    if (DateTime.Now < ticket.AssignedTo.SelectedDateTime.DateTo && DateTime.Now > ticket.AssignedTo.SelectedDateTime.DateFrom.AddMinutes(-30))
+                    {
+                        newTicketResponse.Valid = true;
+                    }
+                    else
+                    {
+                        newTicketResponse.Valid = false;
+                    }
+                    returnList.Add(newTicketResponse);
+                }
+            }
+            
+            return returnList;
         }
     }
 }

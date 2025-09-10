@@ -1,0 +1,24 @@
+<app-header></app-header>
+
+<p-card header="Jegyeim" styleClass=" mx-2 md:mx-40 lg:mx-50 xl:mx-100">
+    <div class="flex flex-wrap justify-center">
+
+
+        @for(ticket of ticketList; track ticket) {
+        <div class="flex-auto">
+            <div class="border-2 border-solid text-center m-3" [ngClass]="{'bg-red-300': ticket.valid == false, 'bg-green-300': ticket.valid == true}">
+                <p class="font-bold">Film: {{ticket.movieName}}</p>
+                <p>Dátum: {{ticket.movieDate}}</p>
+                <div class="flex flex-wrap justify-center m-3">
+                    <div class="mt-auto">
+                        <qr-code value="{{ticket.ticketData}}" size="200" errorCorrectionLevel="M" />
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        }
+    </div>
+</p-card>
+
+<app-footer></app-footer>

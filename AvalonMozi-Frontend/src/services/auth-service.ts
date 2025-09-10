@@ -14,7 +14,7 @@ export class AuthService {
     private router: Router,
     private userClient: UserClient,
     @Inject(PLATFORM_ID) private platformId: Object,
-  ) {}
+  ) { }
 
   login(username: string, password: string): Observable<any> {
     return this.userClient.login(username, password);
@@ -26,8 +26,8 @@ export class AuthService {
       localStorage.removeItem('cart')
       localStorage.removeItem('userprofile')
       this.router.navigate(['kezdolap']).then(() => {
-            window.location.reload();
-        });
+        window.location.reload();
+      });
     }
   }
 
@@ -46,24 +46,24 @@ export class AuthService {
   public get isAdminOrEmployee(): boolean {
     if (isPlatformBrowser(this.platformId)) {
       var userProfileFromStorage = localStorage.getItem('userprofile');
-      if(!userProfileFromStorage) {
+      if (!userProfileFromStorage) {
         return false;
       }
       let userProfile = JSON.parse(atob(userProfileFromStorage) ?? "") as UserDto
-      return userProfile.roles.some(x=> x.technicalName == "ADMIN" || x.technicalName == "EMPLOYEE")
+      return userProfile.roles.some(x => x.technicalName == "ADMIN" || x.technicalName == "EMPLOYEE")
     } else {
       return false;
     }
   }
 
-    public get isCustomer(): boolean {
+  public get isCustomer(): boolean {
     if (isPlatformBrowser(this.platformId)) {
       var userProfileFromStorage = localStorage.getItem('userprofile');
-      if(!userProfileFromStorage) {
+      if (!userProfileFromStorage) {
         return false;
       }
       let userProfile = JSON.parse(atob(userProfileFromStorage) ?? "") as UserDto
-      return userProfile.roles.some(x=> x.technicalName == "CUSTOMER")
+      return userProfile.roles.some(x => x.technicalName == "CUSTOMER")
     } else {
       return false;
     }

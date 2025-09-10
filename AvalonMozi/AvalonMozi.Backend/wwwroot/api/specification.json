@@ -277,6 +277,38 @@
         ]
       }
     },
+    "/api/Order/GetUserBillingInformations": {
+      "get": {
+        "tags": [
+          "Order"
+        ],
+        "operationId": "Order_GetUserBillingInformations",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BillingInformationDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": [
+              "ADMIN",
+              "EMPLOYEE",
+              "CUSTOMER"
+            ]
+          }
+        ]
+      }
+    },
     "/api/Ticket/CheckTicket": {
       "get": {
         "tags": [
@@ -310,6 +342,38 @@
             "JWT": [
               "ADMIN",
               "EMPLOYEE"
+            ]
+          }
+        ]
+      }
+    },
+    "/api/Ticket/GetUserTickets": {
+      "get": {
+        "tags": [
+          "Ticket"
+        ],
+        "operationId": "Ticket_GetUserTickets",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UserTicketDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": [
+              "ADMIN",
+              "EMPLOYEE",
+              "CUSTOMER"
             ]
           }
         ]
@@ -571,6 +635,9 @@
           },
           "county": {
             "type": "string"
+          },
+          "technicalId": {
+            "type": "string"
           }
         }
       },
@@ -602,6 +669,24 @@
           "message": {
             "type": "string",
             "nullable": true
+          }
+        }
+      },
+      "UserTicketDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "ticketData": {
+            "type": "string"
+          },
+          "movieName": {
+            "type": "string"
+          },
+          "movieDate": {
+            "type": "string"
+          },
+          "valid": {
+            "type": "boolean"
           }
         }
       },

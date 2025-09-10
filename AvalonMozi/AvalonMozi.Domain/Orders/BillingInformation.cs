@@ -17,5 +17,6 @@ namespace AvalonMozi.Domain.Orders
         public string ZipCode {  get; set; }
         public string City { get; set; }
         public string County { get; set; }
+        public string TechnicalId { get; set; }
     }
 }

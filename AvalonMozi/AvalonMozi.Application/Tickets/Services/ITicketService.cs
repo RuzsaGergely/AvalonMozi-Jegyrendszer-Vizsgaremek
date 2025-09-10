@@ -14,5 +14,6 @@ namespace AvalonMozi.Application.Tickets.Services
     {
         Task<TicketCheckResponseDto> CheckTicket(string ticketData);
         Ticket GenerateTicket(OrderItem item, User user);
+        Task<List<UserTicketDto>> GetUserTickets(string userId);
     }
 }

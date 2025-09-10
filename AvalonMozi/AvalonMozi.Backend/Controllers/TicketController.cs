@@ -21,5 +21,14 @@ namespace AvalonMozi.Backend.Controllers
         {
             return await _ticketService.CheckTicket(ticketData);
         }
+
+        [HttpGet("GetUserTickets")]
+        [Authorize(Roles = "CUSTOMER")]
+        public async Task<List<UserTicketDto>> GetUserTickets()
+        {
+            string userTechnicalId = this.User.Claims.First(i => i.Type == "UserTechnicalId").Value;
+
+            return await _ticketService.GetUserTickets(userTechnicalId);
+        }
     }
 }

@@ -13,6 +13,7 @@
             }
 
             @if(authService.isCustomer) {
+                <p-button icon="pi pi-ticket" [rounded]="true" severity="info" class="mr-2" routerLink="/jegyeim" />
                 <p-button icon="pi pi-shopping-cart" [rounded]="true" severity="success" class="mr-2" routerLink="/kosar" />
             }
             <p-button icon="pi pi-sign-out" [rounded]="true" severity="danger" (onClick)="authService.logout()" />

@@ -1,7 +1,7 @@
 <app-header></app-header>
 
 <p-card header="Pénztár" styleClass="mx-2 md:mx-40 lg:mx-50 xl:mx-100">
-    @if(this.cartHandler.getCart.cartItems.length > 0) {
+    @if(this.showForm && this.cartHandler.getCart.cartItems.length > 0) {
 
     <div class="flex flex-col gap-4">
         <div *ngFor="let billingInfo of billingInformations" class="field-checkbox">
@@ -12,15 +12,19 @@
                 </div>
                 <div class="w-64 flex-1">
                     <label [for]="billingInfo.technicalId">
+                        @if(billingInfo.technicalId != "NEWBILLINGINFO") {
                         {{ billingInfo.name }}
                         <br>
                         {{ billingInfo.zipCode }} {{ billingInfo.city }} ({{ billingInfo.county }} megye) {{
                         billingInfo.address1 }} {{ billingInfo.address2 }}
-                        @if(billingInfo.companyName != null && billingInfo.vatNumber != null) {
-                            <br>
-                            {{ billingInfo.companyName }} ({{ billingInfo.vatNumber }})
+                        @if(billingInfo.companyName != null && billingInfo.vatNumber != null && billingInfo.companyName != "" && billingInfo.vatNumber != "") {
+                        <br>
+                        {{ billingInfo.companyName }} ({{ billingInfo.vatNumber }})
                         }
-                        
+                        }
+                        @if(billingInfo.technicalId == "NEWBILLINGINFO") {
+                        Új számlázási cím
+                        }
                     </label>
                 </div>
             </div>
@@ -28,10 +32,118 @@
         </div>
     </div>
 
+    @if(selectedBillingInformation.technicalId == "NEWBILLINGINFO") {
+    <h2 class="text-lg font-bold mb-3 mt-3">Új számlázási cím hozzáadása</h2>
+
+    <p-floatlabel variant="on" class="mb-3">
+        <input pInputText id="label_name" [(ngModel)]="selectedBillingInformation.name" autocomplete="off"
+            class="w-full" />
+        <label for="label_name">Név</label>
+    </p-floatlabel>
+
+    <div class="flex flex-wrap">
+        <div class="flex-auto">
+            <p-floatlabel variant="on" class="mb-3">
+                <input pInputText id="label_zip" [(ngModel)]="selectedBillingInformation.zipCode" autocomplete="off"
+                    class="w-full" />
+                <label for="label_zip">Irányítószám</label>
+            </p-floatlabel>
+        </div>
+        <div class="flex-auto">
+            <p-floatlabel variant="on" class="mb-3">
+                <input pInputText id="label_county" [(ngModel)]="selectedBillingInformation.county" autocomplete="off"
+                    class="w-full" />
+                <label for="label_county">Megye</label>
+            </p-floatlabel>
+        </div>
+        <div class="flex-auto">
+            <p-floatlabel variant="on" class="mb-3">
+                <input pInputText id="label_city" [(ngModel)]="selectedBillingInformation.city" autocomplete="off"
+                    class="w-full" />
+                <label for="label_city">Város</label>
+            </p-floatlabel>
+        </div>
+    </div>
+    <div class="flex flex-wrap">
+        <div class="flex-auto">
+            <p-floatlabel variant="on" class="mb-3">
+                <input pInputText id="label_address1" [(ngModel)]="selectedBillingInformation.address1"
+                    autocomplete="off" class="w-full" />
+                <label for="label_address1">Cím első sora</label>
+            </p-floatlabel>
+        </div>
+        <div class="flex-auto">
+            <p-floatlabel variant="on" class="mb-3">
+                <input pInputText id="label_address2" [(ngModel)]="selectedBillingInformation.address2"
+                    autocomplete="off" class="w-full" />
+                <label for="label_address2">Cím második sora</label>
+            </p-floatlabel>
+        </div>
+    </div>
+
+    <div class="flex flex-wrap">
+        <div class="flex-auto">
+            <p-floatlabel variant="on" class="mb-3">
+                <input pInputText id="label_companyName" [(ngModel)]="selectedBillingInformation.companyName"
+                    autocomplete="off" class="w-full" />
+                <label for="label_companyName">Cégnév</label>
+            </p-floatlabel>
+        </div>
+        <div class="flex-auto">
+            <p-floatlabel variant="on" class="mb-3">
+                <input pInputText id="label_vatNumber" [(ngModel)]="selectedBillingInformation.vatNumber"
+                    autocomplete="off" class="w-full" />
+                <label for="label_vatNumber">Adószám</label>
+            </p-floatlabel>
+        </div>
+    </div>
+    }
+
+    @if(this.cartHandler.getCart.cartItems.length > 0) {
+    <h2 class="text-lg font-bold mb-3 mt-3">Kosár tartalma</h2>
+    <p-table [value]="this.cartHandler.getCart.cartItems" stripedRows size="small">
+        <ng-template #header>
+            <tr>
+                <th>Film</th>
+                <th>Vetítés dátuma</th>
+                <th>Db.</th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-cartItem>
+            <tr>
+                <td>{{ cartItem.movieReadable }}</td>
+                <td>{{ cartItem.dateReadable }}</td>
+                <td>{{ cartItem.qty }}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+    }
 
     <p class="text-right text-lg font-bold mt-5">Összesen fizetendő: br. {{ this.cartHandler.getCart.priceWithVat }} Ft
     </p>
     <p class="text-right text-sm">(nettó {{ this.cartHandler.getCart.priceWithoutVat }} Ft)</p>
+    <p-button label="Megrendelés" icon="pi pi-check" iconPos="right" (onClick)="createOrderRequest()" class="mt-3" />
+    }
+
+
+    @if(this.showSuccess) {
+    <div>
+        <div class="flex flex-wrap justify-center mt-2">
+            <i class="pi pi-check" style="color: green; font-size: 10rem"></i>
+        </div>
+        <h2 class="text-2xl font-bold text-center mb-5">Sikeres megrendelés!</h2>
+        <p class="text-center">A jegyeidet megtalálod a <a href="/jegyeim">"Jegyeim"</a> oldalon!</p>
+    </div>
+    }
+
+    @if(this.showFailed) {
+    <div>
+        <div class="flex flex-wrap justify-center mt-2">
+            <i class="pi pi-times" style="color: red; font-size: 10rem"></i>
+        </div>
+        <h2 class="text-2xl font-bold text-center mb-5">Elnézést kérünk, valami nem sikerült...</h2>
+        <p class="text-center">Kérjük töltsd újra az oldalt az F5 gomb segítségével vagy próbáld újra később!</p>
+    </div>
     }
 </p-card>
 
