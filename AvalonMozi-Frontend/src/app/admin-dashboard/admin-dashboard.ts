@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../services/auth-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -6,6 +8,19 @@ import { Component } from '@angular/core';
   templateUrl: './admin-dashboard.html',
   styleUrl: './admin-dashboard.css'
 })
-export class AdminDashboard {
+export class AdminDashboard implements OnInit {
+
+  constructor(
+    private userAuth: AuthService,
+    private router: Router
+  ) { }
+
+  ngOnInit(): void {
+    if (!this.userAuth.isAdminOrEmployee) {
+      this.router.navigate(['kezdolap']).then(() => {
+        window.location.reload();
+      });
+    }
+  }
 
 }

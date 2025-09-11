@@ -3,6 +3,8 @@ import { LocalSharedModule } from '../localshared/local-shared-module';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { BarcodeFormat } from '@zxing/library';
 import { TicketCheckResponseDto, TicketClient } from '../../services/moziHttpClient';
+import { AuthService } from '../../services/auth-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-ticketcheck',
@@ -25,10 +27,15 @@ export class AdminTicketcheck implements OnInit {
   checkResultDto!: TicketCheckResponseDto
 
   constructor(
-    private ticketClient: TicketClient
+    private ticketClient: TicketClient,
+    private userAuth: AuthService,
+    private router: Router
   ){}
 
   ngOnInit(): void {
+    if(!this.userAuth.isAdminOrEmployee) {
+      this.router.navigate(["kezdolap"])
+    }
   }
   
   onCodeResult(result: string) {
