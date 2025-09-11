@@ -1,1 +1,47 @@
-<p>admin-ticketcheck works!</p>
+<div class="flex flex-wrap justify-center mt-1">
+    <div class="mt-auto">
+        <img src="/assets/Logo_Transparent_Colorful_Rectangle.png" class="w-50 md:w-70 lg:w-90" />
+    </div>
+</div>
+
+<p-card header="Admin - Jegyellenőrzés" styleClass="mx-2 md:mx-60 lg:mx-80 xl:mx-160">
+    <div *ngIf="hasDevices">
+        <label for="deviceSelect">Válassz kamerát:</label>
+        <select id="deviceSelect" (change)="onDeviceSelectChange($event)">
+            <option *ngFor="let device of availableDevices" [value]="device.deviceId">
+                {{ device.label || 'Unknown Camera' }}
+            </option>
+        </select>
+    </div>
+
+    <!-- Barcode scanner component -->
+     <p class="font-bold">Kamerakép:</p>
+    <zxing-scanner [formats]="allowedFormats" [autostart]="true" [device]="selectedDevice"
+        (scanSuccess)="onCodeResult($event)" (camerasFound)="onDevicesFound($event)"
+        (camerasNotFound)="onHasDevices(false)" (scanError)="onError($event)"></zxing-scanner>
+
+    <p-dialog header="Ellenőrzési eredmény" [modal]="true" [(visible)]="showResultDialog">
+        <p><b>Film címe:</b> {{checkResultDto.movieName}}</p>
+        <p><b>Vetítés:</b> {{checkResultDto.movieDate}}</p>
+
+        @if(checkResultDto.valid) {
+        <div>
+            <div class="flex flex-wrap justify-center mt-2">
+                <i class="pi pi-check" style="color: green; font-size: 10rem"></i>
+            </div>
+            <h2 class="text-2xl font-bold text-center mb-5">ÉRVÉNYES!</h2>
+            <p class="text-center">{{checkResultDto.message}}</p>
+        </div>
+        }
+
+        @if(!checkResultDto.valid) {
+        <div>
+            <div class="flex flex-wrap justify-center mt-2">
+                <i class="pi pi-times" style="color: red; font-size: 10rem"></i>
+            </div>
+            <h2 class="text-2xl font-bold text-center mb-5">ÉRVÉNYTELEN!</h2>
+            <p class="text-center">{{checkResultDto.message}}</p>
+        </div>
+        }
+    </p-dialog>
+</p-card>

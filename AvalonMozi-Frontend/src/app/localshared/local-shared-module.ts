@@ -16,7 +16,7 @@ import { ImageModule } from 'primeng/image';
 import { TextareaModule } from 'primeng/textarea';
 import { SelectModule } from 'primeng/select';
 import { RadioButtonModule } from 'primeng/radiobutton';
-import { InputMaskModule } from 'primeng/inputmask';
+import { DialogModule } from 'primeng/dialog';
 
 
 
@@ -39,7 +39,8 @@ import { InputMaskModule } from 'primeng/inputmask';
     ImageModule,
     TextareaModule,
     SelectModule,
-    RadioButtonModule
+    RadioButtonModule,
+    DialogModule
   ],
   exports: [
     CommonModule,
@@ -58,7 +59,8 @@ import { InputMaskModule } from 'primeng/inputmask';
     ImageModule,
     TextareaModule,
     SelectModule,
-    RadioButtonModule
+    RadioButtonModule,
+    DialogModule
   ]
 })
 export class LocalSharedModule { }

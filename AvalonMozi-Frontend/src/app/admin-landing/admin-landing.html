@@ -1,1 +1,22 @@
-<p>admin-landing works!</p>
+<div class="flex flex-wrap justify-center mt-1">
+    <div class="mt-auto">
+        <img src="/assets/Logo_Transparent_Colorful_Rectangle.png" class="w-50 md:w-70 lg:w-90" />
+    </div>
+</div>
+
+<p-card styleClass="mx-2 md:mx-60 lg:mx-80 xl:mx-160">
+    <div class="flex flex-wrap text-center">
+        <div class="flex-auto">
+            <button pButton class="w-50 h-50 m-3" routerLink="/admin/vezerlopult">
+                <i class="pi pi-cog" pButtonIcon></i>
+                <span pButtonLabel>Adminisztráció</span>
+            </button>
+        </div>
+        <div class="flex-auto">
+            <button pButton class="w-50 h-50 bg-cyan-500 m-3" routerLink="/admin/jegyellenorzes">
+                <i class="pi pi-ticket" pButtonIcon></i>
+                <span pButtonLabel>Jegyellenőrzés</span>
+            </button>
+        </div>
+    </div>
+</p-card>
