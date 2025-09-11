@@ -1,1 +1,80 @@
-<p>register works!</p>
+<div class="flex flex-wrap justify-center mt-1">
+    <div class="mt-auto">
+        <img src="/assets/Logo_Transparent_Colorful_Rectangle.png" class="w-50 md:w-70 lg:w-90" />
+    </div>
+</div>
+
+<p-card styleClass="mx-2 md:mx-60 lg:mx-80 xl:mx-160">
+
+    @if(this.showForm) {
+    <h1 class="text-2xl font-bold text-center mb-5">Regisztráció</h1>
+
+    <div class="flex flex-wrap">
+        <div class="flex-auto">
+            <p-floatlabel variant="on" class="mb-3">
+                <input pInputText id="label_firstname" [(ngModel)]="newUserDto.firstName" autocomplete="off"
+                    class="w-full" />
+                <label for="label_firstname">Vezetéknév</label>
+            </p-floatlabel>
+        </div>
+        <div class="flex-auto">
+            <p-floatlabel variant="on" class="mb-3">
+                <input pInputText id="label_lastname" [(ngModel)]="newUserDto.lastName" autocomplete="off"
+                    class="w-full" />
+                <label for="label_lastname">Keresztnév</label>
+            </p-floatlabel>
+        </div>
+    </div>
+    <div class="flex flex-wrap">
+        <div class="flex-auto">
+            <p-floatlabel variant="on" class="mb-3">
+                <input pInputText id="label_email" [(ngModel)]="newUserDto.email" autocomplete="off" class="w-full" />
+                <label for="label_email">Email cím</label>
+            </p-floatlabel>
+        </div>
+        <div class="flex-auto">
+            <p-floatlabel variant="on" class="mb-3">
+                <p-password id="label_password" [(ngModel)]="newUserDto.password" autocomplete="off"
+                    styleClass="w-full" />
+                <label for="label_password">Jelszó</label>
+            </p-floatlabel>
+        </div>
+    </div>
+
+
+    <div class="flex flex-wrap">
+        <div class="flex-auto">
+            <p-floatlabel variant="on" class="mb-3">
+                <input pInputText id="label_phone" [(ngModel)]="newUserDto.phone" autocomplete="off" class="w-full" />
+                <label for="label_phone">Telefonszám (nem kötelező)</label>
+            </p-floatlabel>
+        </div>
+    </div>
+
+
+    <div class="flex flex-wrap justify-center mt-2">
+        <p-button label="Regisztráció befejezése" icon="pi pi-arrow-right" iconPos="right"
+            [disabled]="RegistrationButtonEnabled" (onClick)="initiateRegistration()"/>
+    </div>
+    }
+
+    @if(this.showSuccess) {
+    <div>
+        <div class="flex flex-wrap justify-center mt-2">
+            <i class="pi pi-check" style="color: green; font-size: 10rem"></i>
+        </div>
+        <h2 class="text-2xl font-bold text-center mb-5">Sikeres regisztráció!</h2>
+        <p class="text-center">Kérünk jelentkezz be a <a href="/bejelentkezes">"Bejelentkezés"</a> aloldalon!</p>
+    </div>
+    }
+
+    @if(this.showFailed) {
+    <div>
+        <div class="flex flex-wrap justify-center mt-2">
+            <i class="pi pi-times" style="color: red; font-size: 10rem"></i>
+        </div>
+        <h2 class="text-2xl font-bold text-center mb-5">Elnézést kérünk, valami nem sikerült...</h2>
+        <p class="text-center">Kérjük töltsd újra az oldalt az F5 gomb segítségével vagy próbáld újra később!</p>
+    </div>
+    }
+</p-card>

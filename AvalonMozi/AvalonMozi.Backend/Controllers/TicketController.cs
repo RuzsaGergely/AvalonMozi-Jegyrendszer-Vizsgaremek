@@ -8,7 +8,6 @@ namespace AvalonMozi.Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "ADMIN,EMPLOYEE")]
     public class TicketController : ControllerBase
     {
         private readonly ITicketService _ticketService;
@@ -17,6 +16,7 @@ namespace AvalonMozi.Backend.Controllers
             _ticketService = ticketService;
         }
         [HttpGet("CheckTicket")]
+        [Authorize(Roles = "ADMIN,EMPLOYEE")]
         public async Task<TicketCheckResponseDto> CheckTicketValidity(string ticketData)
         {
             return await _ticketService.CheckTicket(ticketData);

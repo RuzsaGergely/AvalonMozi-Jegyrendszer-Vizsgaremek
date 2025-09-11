@@ -43,21 +43,21 @@ export class Checkout implements OnInit {
 
     this.orderClient.getUserBillingInformations().subscribe((data) => {
       this.billingInformations = data
-      this.billingInformations.push({
-        address1: "",
-        address2: "",
-        city: "",
-        companyName: "",
-        county: "",
-        name: "",
-        technicalId: "NEWBILLINGINFO",
-        vatNumber: "",
-        zipCode: ""
-      } as BillingInformationDto)
-
-      this.selectedBillingInformation = this.billingInformations[this.billingInformations.length - 1]
       console.log(data)
     })
+    this.billingInformations.push({
+      address1: "",
+      address2: "",
+      city: "",
+      companyName: "",
+      county: "",
+      name: "",
+      technicalId: "NEWBILLINGINFO",
+      vatNumber: "",
+      zipCode: ""
+    } as BillingInformationDto)
+
+    this.selectedBillingInformation = this.billingInformations[this.billingInformations.length - 1]
   }
 
   createOrderRequest(): void {

@@ -10,7 +10,6 @@ namespace AvalonMozi.Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "ADMIN,EMPLOYEE")]
     public class OrderController : ControllerBase
     {
         private readonly IOrderService _orderService;
