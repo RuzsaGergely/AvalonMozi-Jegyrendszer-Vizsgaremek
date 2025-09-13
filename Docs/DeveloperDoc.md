@@ -46,7 +46,6 @@ Ebben a táblában tároljuk a felhasználók (Users tábla) és a szerepkörök
 | RolesId   | int         | Unchecked          |
 | UsersId   | int         | Unchecked          |
 
-
 **BillingInformations** tábla:
 
 Ebben a táblában tároljuk a felhasználók számlázási adatait. Egy felhasználóhoz több számlázási adat is tartozhat.
@@ -146,11 +145,9 @@ Ebben a táblában tároljuk a rendelési elemekhez legenerált jegyek adatait.
 | AssignedToId | int           | Unchecked          |
 | Deleted      | bit           | Unchecked          |
 
-
 ### Adatbázis diagram
 
 ![](./DeveloperDoc/DeveloperDoc_1.png)
-
 
 ## Backend
 
@@ -310,6 +307,7 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InZpenNnYXJlbWVrLmFkbWluQHRlc3R
 #### Authentikáció folyamata
 
 1. A felületen / Swagger UI-on beküldjük a requestet az `/api/User/Login` enpointon. A request paraméterek URL-ben mennek.
+
 ```
 curl -X 'POST' \
   'https://localhost:7285/api/User/Login?email=vizsgaremek.admin%40testdev.hu&password=12345' \
@@ -320,6 +318,7 @@ curl -X 'POST' \
 2. A `userService` megkapja az `AuthenticateUser()` metódusban az adatot.
 3. A service-ben megkeressük az adatbázisból a felhasználót és összevetjük a hash értékeket.
 4. Sikeres azonosítás esetén visszaadjuk a felhasználó entitásából gyártott DTO-t.
+
 ```csharp
 public async Task<UserDto> AuthenticateUser(string email, string password)
 {
@@ -331,8 +330,10 @@ public async Task<UserDto> AuthenticateUser(string email, string password)
     return _userFactory.ConvertEntityToDto(user);
 }
 ```
+
 5. A legyártott `UserDto` objektumot átadjuk a `JWTAuthManager` service `GenerateToken()` metódusának.
 6. A service-ben legyártjuk a tokenjét a felhasználónak. A generálás során `claim` paraméterként adjuk meg a felhasználó szerepkörét és technikai azonosítóját a felhasználónak.
+
 ```csharp
 public string GenerateToken(UserDto user)
 {
@@ -367,8 +368,143 @@ public string GenerateToken(UserDto user)
     return tokenHandler.WriteToken(token);
 }
 ```
+
 7. Visszaadjuk a tokent válaszként a requestre.
 
+### NSwag generálás
+
+A backend build folyamat szerves része az NSwag API generálása. Ennek segítségével a buildelés után automatikusan rendelkezésünkre áll az API végpontokat leképző Typescript nyelvű service.
+
+Konfigurálása C#-ban:
+
+```xml
+<Target Name="NSwag" AfterTargets="PostBuildEvent" Condition=" '$(Configuration)' == 'Debug' ">
+    <Message Importance="High" Text="$(NSwagExe_Net80) run nswag.json /variables:Configuration=$(Configuration)" />
+    <Exec WorkingDirectory="$(ProjectDir)" EnvironmentVariables="ASPNETCORE_ENVIRONMENT=Development" Command="$(NSwagExe_Net80) run nswag.json /variables:Configuration=$(Configuration)" />
+    <Delete Files="$(ProjectDir)\obj\$(MSBuildProjectFile).NSwag.targets" />
+</Target>
+```
+
+nswag.json:
+
+```json
+{
+  "runtime": "Net80",
+  "defaultVariables": null,
+  "documentGenerator": {
+    "aspNetCoreToOpenApi": {
+      "project": "AvalonMozi.Backend.csproj",
+      "msBuildProjectExtensionsPath": null,
+      "configuration": null,
+      "runtime": null,
+      "targetFramework": null,
+      "noBuild": true,
+      "verbose": false,
+      "workingDirectory": null,
+      "requireParametersWithoutDefault": true,
+      "apiGroupNames": null,
+      "defaultPropertyNameHandling": "Default",
+      "defaultReferenceTypeNullHandling": "Null",
+      "defaultDictionaryValueReferenceTypeNullHandling": "NotNull",
+      "defaultResponseReferenceTypeNullHandling": "NotNull",
+      "defaultEnumHandling": "Integer",
+      "flattenInheritanceHierarchy": false,
+      "generateKnownTypes": true,
+      "generateEnumMappingDescription": false,
+      "generateXmlObjects": false,
+      "generateAbstractProperties": false,
+      "generateAbstractSchemas": true,
+      "ignoreObsoleteProperties": false,
+      "allowReferencesWithProperties": false,
+      "excludedTypeNames": [],
+      "serviceHost": null,
+      "serviceBasePath": null,
+      "serviceSchemes": [],
+      "infoTitle": "RESC API",
+      "infoDescription": null,
+      "infoVersion": "1.0.0",
+      "documentTemplate": null,
+      "documentProcessorTypes": [],
+      "operationProcessorTypes": [],
+      "typeNameGeneratorType": null,
+      "schemaNameGeneratorType": null,
+      "contractResolverType": null,
+      "serializerSettingsType": null,
+      "useDocumentProvider": true,
+      "documentName": "v1",
+      "aspNetCoreEnvironment": null,
+      "createWebHostBuilderMethod": null,
+      "startupType": null,
+      "allowNullableBodyParameters": true,
+      "output": "wwwroot/api/specification.json",
+      "outputType": "OpenApi3",
+      "assemblyPaths": [],
+      "assemblyConfig": null,
+      "referencePaths": [],
+      "useNuGetCache": false
+    }
+  },
+  "codeGenerators": {
+    "openApiToTypeScriptClient": {
+      "className": "{controller}Client",
+      "moduleName": "",
+      "namespace": "",
+      "typeScriptVersion": 4.7,
+      "template": "Angular",
+      "promiseType": "Promise",
+      "httpClass": "HttpClient",
+      "withCredentials": false,
+      "useSingletonProvider": true,
+      "injectionTokenType": "InjectionToken",
+      "rxJsVersion": 7.5,
+      "dateTimeType": "Date",
+      "nullValue": "Undefined",
+      "generateClientClasses": true,
+      "generateClientInterfaces": true,
+      "generateOptionalParameters": false,
+      "exportTypes": true,
+      "wrapDtoExceptions": false,
+      "exceptionClass": "SwaggerException",
+      "clientBaseClass": null,
+      "wrapResponses": false,
+      "wrapResponseMethods": [],
+      "generateResponseClasses": true,
+      "responseClass": "SwaggerResponse",
+      "protectedMethods": [],
+      "configurationClass": null,
+      "useTransformOptionsMethod": false,
+      "useTransformResultMethod": false,
+      "generateDtoTypes": true,
+      "operationGenerationMode": "MultipleClientsFromOperationId",
+      "markOptionalProperties": false,
+      "generateCloneMethod": false,
+      "typeStyle": "Class",
+      "classTypes": [],
+      "extendedClasses": [],
+      "extensionCode": null,
+      "generateDefaultValues": true,
+      "excludedTypeNames": [],
+      "excludedParameterNames": [],
+      "handleReferences": false,
+      "generateConstructorInterface": true,
+      "convertConstructorInterfaceData": false,
+      "importRequiredTypes": true,
+      "useGetBaseUrlMethod": false,
+      "baseUrlTokenName": "API_BASE_URL",
+      "queryNullValue": "",
+      "inlineNamedDictionaries": false,
+      "inlineNamedAny": false,
+      "templateDirectory": null,
+      "typeNameGeneratorType": null,
+      "propertyNameGeneratorType": null,
+      "enumNameGeneratorType": null,
+      "serviceHost": null,
+      "serviceSchemes": null,
+      "output": "../../AvalonMozi-Frontend/src/services/moziHttpClient.ts"
+    }
+  }
+}
+```
 
 ## Frontend
 
@@ -512,3 +648,10 @@ src/services
     jwt-interceptor.service.ts
     moziHttpClient.ts
 ```
+
+| Service neve            | Service feladata                                                                                                                                                                         |
+|-------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Auth-Service            | Ez a service felelős a weboldal autentikáció kezeléséért, valamint a felhasználói profil betöltéséért.                                                                                   |
+| CartHandler             | Ez a service felelős a weboldal kosár kezeléséért.                                                                                                                                       |
+| JWT-Interceptor-Service | Ez a service felelős azért, hogy minden kimenő API hívásra automatikusan rárakja a felhasználó JWT tokenjét.                                                                             |
+| moziHttpClient          | Ez a service felelős minden API kapcsolat megvalósításáért minden DTO-val és interfésszel együtt. Ezt a service fájlt a backend automatikusan generálja build közben NSwag segítségével. |
