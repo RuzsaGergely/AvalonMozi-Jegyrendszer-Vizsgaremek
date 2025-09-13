@@ -472,37 +472,6 @@
           }
         ]
       }
-    },
-    "/api/User/GeneratePassword": {
-      "get": {
-        "tags": [
-          "User"
-        ],
-        "operationId": "User_GeneratePassword",
-        "parameters": [
-          {
-            "name": "password",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/octet-stream": {
-                "schema": {
-                  "type": "string",
-                  "format": "binary"
-                }
-              }
-            }
-          }
-        }
-      }
     }
   },
   "components": {
