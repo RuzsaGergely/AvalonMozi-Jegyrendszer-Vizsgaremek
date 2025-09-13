@@ -55,16 +55,5 @@ namespace AvalonMozi.Backend.Controllers
             string userTechnicalId = this.User.Claims.First(i => i.Type == "UserTechnicalId").Value;
             return _userFactory.ConvertEntityToDto(await _userService.GetUserByTechnicalId(userTechnicalId));
         }
-
-        [HttpGet("GeneratePassword")]
-        public async Task<IActionResult> GeneratePassword(string password)
-        {
-            var user = await _userService.GetUserByEmail("vizsgaremek.admin@testdev.hu");
-            if(user is not null)
-            {
-                return Ok(_userService.HashPassword(password));
-            }
-            return BadRequest();
-        }
     }
 }
