@@ -24,7 +24,12 @@ export class AdminTicketcheck implements OnInit {
   selectedDevice: MediaDeviceInfo | undefined;  // Fix: Use `undefined` instead of `null`
 
   showResultDialog: boolean = false;
-  checkResultDto!: TicketCheckResponseDto
+  checkResultDto: TicketCheckResponseDto = {
+    message: "",
+    movieDate: "",
+    movieName: "",
+    valid: false
+  } as TicketCheckResponseDto
 
   constructor(
     private ticketClient: TicketClient,
@@ -34,7 +39,9 @@ export class AdminTicketcheck implements OnInit {
 
   ngOnInit(): void {
     if(!this.userAuth.isAdminOrEmployee) {
-      this.router.navigate(["kezdolap"])
+      this.router.navigate(['kezdolap']).then(() => {
+        window.location.reload();
+      });
     }
   }
   

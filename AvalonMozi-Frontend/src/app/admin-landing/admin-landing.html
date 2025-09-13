@@ -13,10 +13,19 @@
             </button>
         </div>
         <div class="flex-auto">
-            <button pButton class="w-50 h-50 bg-cyan-500 m-3" routerLink="/admin/jegyellenorzes">
+            <button pButton class="w-50 h-50 m-3" routerLink="/admin/jegyellenorzes" severity="info">
                 <i class="pi pi-ticket" pButtonIcon></i>
                 <span pButtonLabel>Jegyellenőrzés</span>
             </button>
         </div>
     </div>
+    <div class="flex flex-wrap justify-center mt-1">
+        <div class="mt-auto">
+            <button pButton [routerLink]="['/kezdolap']" severity="help">
+                <i class="pi pi-arrow-left" pButtonIcon></i>
+                <span pButtonLabel>Visszatérés a főoldalra!</span>
+            </button>
+        </div>
+    </div>
+
 </p-card>

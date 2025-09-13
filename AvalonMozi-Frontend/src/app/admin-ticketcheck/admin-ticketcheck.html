@@ -15,10 +15,20 @@
     </div>
 
     <!-- Barcode scanner component -->
-     <p class="font-bold">Kamerakép:</p>
+    <p class="font-bold">Kamerakép:</p>
     <zxing-scanner [formats]="allowedFormats" [autostart]="true" [device]="selectedDevice"
         (scanSuccess)="onCodeResult($event)" (camerasFound)="onDevicesFound($event)"
         (camerasNotFound)="onHasDevices(false)" (scanError)="onError($event)"></zxing-scanner>
+
+
+    <div class="flex flex-wrap justify-center mt-5">
+        <div class="mt-auto">
+            <button pButton [routerLink]="['/admin']" severity="help">
+                <i class="pi pi-arrow-left" pButtonIcon></i>
+                <span pButtonLabel>Visszatérés a menübe!</span>
+            </button>
+        </div>
+    </div>
 
     <p-dialog header="Ellenőrzési eredmény" [modal]="true" [(visible)]="showResultDialog">
         <p><b>Film címe:</b> {{checkResultDto.movieName}}</p>
