@@ -16,4 +16,4 @@
 |-------------------------|-------------------------------------------------------------------------|
 | **Védés helyszíne:**    | BMSzC Bolyai János Műszaki Technikum és Kollégium                       |
 | **Védés időpontja:**    | 2025-10-10 10:15                                                        |
-| **Védés eredménye:**    | <span style="color: green; font-weight: bold">SIKERES VÉDÉS</span>      |
+| **Védés eredménye:**    | SIKERES VÉDÉS                                                           |
