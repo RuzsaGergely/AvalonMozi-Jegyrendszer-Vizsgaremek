@@ -19,8 +19,4 @@
     <ProjectReference Include="..\AvalonMozi.Domain\AvalonMozi.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
 </Project>
